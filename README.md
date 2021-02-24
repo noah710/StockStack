@@ -10,6 +10,7 @@ To run the flask server, run this from the root directory
 ```bash
 ./serve.sh
 ```
+Then navigate to http://localhost:8080 <br><br>
 To install new requirements or fresh build, run it like this
 ```bash
 ./serve.sh fresh
