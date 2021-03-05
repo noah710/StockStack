@@ -3,10 +3,20 @@
   <title>Stock Portfolio</title>
   <link href="/static/style.css" rel="stylesheet">
 </head>
+
 <div class="toolbar">
+  <!--
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
   <a href="#contact">User Profile</a>
+  -->
+  {% if user %}
+    <p>Hello {{user}}!</p>
+  {% else %}
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  {% endif %}
+  
   <input type="text" placeholder="Search Ticker">
 </div>
 <body>
