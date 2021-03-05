@@ -5,7 +5,8 @@ StockStack is a Flask app for CS1520
 ## Installation
 
 Please install Docker 
-## Usage
+## Usage - Docker
+<b>You must copy the GCP key to as deploy/GCP_ds_key.json before running serve.sh</b>
 To run the flask server, run this from the root directory
 ```bash
 ./serve.sh
