@@ -8,6 +8,9 @@ RUN bash -c "apt install -y python3 python3-pip"
 COPY src/requirements.txt /flask-requirements.txt
 RUN bash -c "pip3 install -r /flask-requirements.txt"
 
+# copy google API key
+COPY deploy/GCP_ds_key.json /key.json
+
 # copy entrypoint
 COPY deploy/entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
