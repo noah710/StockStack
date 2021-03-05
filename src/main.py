@@ -19,6 +19,7 @@ from flask import (
 ds_client = datastore.Client()
 
 app = Flask(__name__)
+app.secret_key = os.urandom(12)
 
 def hash_password(password, salt):
     """This will give us a hashed password that will be extremlely difficult to 
@@ -31,7 +32,12 @@ def hash_password(password, salt):
 def home():
     """Return a simple HTML page."""
     print("Hit the route!")
-    return render_template("index.html")
+
+    # check if there is an active session
+    user = session.get("user", None)
+
+    # add user variable to homepage
+    return render_template("index.html", user = user)
 
 @app.route("/register", methods=["GET"])
 def serve_register_form():
@@ -84,9 +90,9 @@ def handle_login():
     if pw_hash != user["password_hash"]:
         return "Password invalid"
     
-    return "Login success"
-    # if we got here, hash is valid and we need to make session for the user
-    #session["user"] = username
+    # make new session and redirect to home page
+    session["user"] = username
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True) 
