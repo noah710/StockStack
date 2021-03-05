@@ -60,5 +60,33 @@ def register():
 
     return render_template("index.html")
 
+@app.route("/login", methods=["GET"])
+def serve_login():
+    return render_template("login.html")
+
+@app.route("/login", methods=["POST"])
+def handle_login():
+    # get user input
+    username = request.form.get("username")
+    password = request.form.get("password")
+
+    # check db if user exist
+    user_key = ds_client.key("UserCredential", username)
+    user = ds_client.get(user_key)
+    if not user:
+        return "User not found"
+
+    # if it got here, that username is in our db
+    pw_salt = user["salt"]
+    pw_hash = hash_password(password, pw_salt)
+    
+    # check if hashes match
+    if pw_hash != user["password_hash"]:
+        return "Password invalid"
+    
+    return "Login success"
+    # if we got here, hash is valid and we need to make session for the user
+    #session["user"] = username
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True) 
