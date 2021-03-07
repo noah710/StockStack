@@ -93,6 +93,10 @@ def handle_login():
     # make new session and redirect to home page
     session["user"] = username
     return redirect("/")
+	
+@app.route("/aboutus", methods=["GET"])
+def about_us():
+	return render_template("aboutus.html")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True) 

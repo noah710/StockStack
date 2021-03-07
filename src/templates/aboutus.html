@@ -3,13 +3,12 @@
   <title>Stock Portfolio</title>
   <link href="/static/style.css" rel="stylesheet">
 </head>
-
 <div class="toolbar">
   <!--
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
   <a href="#contact">User Profile</a>
-  -->
+ 
   {% if user %}
     <p>Hello {{user}}!</p>
   {% else %}
@@ -17,10 +16,13 @@
     <a href="/register">Register</a>
   {% endif %}
 	<a href="/aboutus">About Us</a>
+	-->
   <input type="text" placeholder="Search Ticker">
+  <a href="/">Return Home</a>
 </div>
 <body>
-  <h1>Stock Portfolio</h1>
-  <p>Welcome to our stock portfolio website. From here, you can search ticker symbols and add them to your account page.</p>
+  <h1>Stock Stack</h1>
+  <p>Stock Stack is a web application created for CS1520 Programming Languages for Web Applications at the University of Pittsburgh.</p>
+  <p>Our team includes Christopher Markulin, Noah Laferriere, Nicholas Pilotti, and John Fessler.</p>
 </body>
 </html>
