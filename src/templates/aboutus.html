@@ -8,22 +8,20 @@
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
   <a href="#contact">User Profile</a>
- 
+ -->
+ <a href="/">Return Home</a>
   {% if user %}
-    <p>Hello {{user}}!</p>
+    <a href="/profile">Profile</a>
   {% else %}
     <a href="/login">Login</a>
     <a href="/register">Register</a>
   {% endif %}
-	<a href="/aboutus">About Us</a>
-	-->
     <form id="form" role="search">
   <input type="search" id="query" name="q"
    placeholder="Enter ticker"
    aria-label="Search for ticker">
   <button>Search</button>
 </form>
-  <a href="/">Return Home</a>
 </div>
 <body>
   <h1>Stock Stack</h1>
