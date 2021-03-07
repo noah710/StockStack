@@ -12,13 +12,21 @@
   -->
   {% if user %}
     <p>Hello {{user}}!</p>
+	<a href="/profile">Profile</a>
   {% else %}
     <a href="/login">Login</a>
     <a href="/register">Register</a>
   {% endif %}
 	<a href="/aboutus">About Us</a>
-  <input type="text" placeholder="Search Ticker">
+  
+  <form id="form" role="search">
+  <input type="search" id="query" name="q"
+   placeholder="Enter ticker"
+   aria-label="Search for ticker">
+  <button id="search">Search</button>
+</form>
 </div>
+
 <body>
   <h1>Stock Stack</h1>
   <p>Welcome to our stock portfolio website. From here, you can search ticker symbols and add them to your account page.</p>

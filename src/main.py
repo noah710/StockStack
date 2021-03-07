@@ -98,5 +98,13 @@ def handle_login():
 def about_us():
 	return render_template("aboutus.html")
 
+@app.route("/profile", methods=["GET"])
+def profile():
+
+	#load the user from the session. You can only access the profile page after logging in, so this should always load.
+	user = session.get("user", None)
+	
+	return render_template("profile.html", user = user)
+	
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True) 
