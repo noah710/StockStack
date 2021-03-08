@@ -8,15 +8,18 @@
   <a class="active" href="#home">Home</a>
   <a href="#about">About</a>
   <a href="#contact">User Profile</a>
+<<<<<<< HEAD
 
+=======
+ -->
+ <a href="/">Return Home</a>
+>>>>>>> 7eaeba4bed7d510882a55ae20155d9321e38d5a3
   {% if user %}
-    <p>Hello {{user}}!</p>
+    <a href="/profile">Profile</a>
   {% else %}
     <a href="/login">Login</a>
     <a href="/register">Register</a>
   {% endif %}
-	<a href="/aboutus">About Us</a>
-	-->
     <form id="form" role="search">
   <input type="search" id="query" name="q"
    placeholder="Enter ticker"
@@ -37,7 +40,6 @@
        }
      </style>
 </form>
-  <a href="/">Return Home</a>
 </div>
 <body>
   <h1>Stock Stack</h1>

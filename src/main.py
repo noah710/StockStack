@@ -101,7 +101,10 @@ def handle_login():
 
 @app.route("/aboutus", methods=["GET"])
 def about_us():
-	return render_template("aboutus.html")
+
+	user = session.get("user", None)
+	
+	return render_template("aboutus.html", user = user)
 
 @app.route("/profile", methods=["GET"])
 def profile():
