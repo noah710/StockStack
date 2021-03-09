@@ -69,7 +69,9 @@ def register():
     user["salt"] = salt
     ds_client.put(user)
 
-    return render_template("index.html")
+    session["user"] = username
+    return redirect("/")
+    # return render_template("index.html")
 
 @app.route("/login", methods=["GET"])
 def serve_login():
@@ -103,7 +105,7 @@ def handle_login():
 def about_us():
 
 	user = session.get("user", None)
-	
+
 	return render_template("aboutus.html", user = user)
 
 @app.route("/profile", methods=["GET"])
