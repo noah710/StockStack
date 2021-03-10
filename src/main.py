@@ -41,8 +41,12 @@ def home():
 
 @app.route("/", methods=["POST"])
 def search():
+    return redirect("/results")
+
+@app.route("/results")
+def loadResults():
     query = request.form.get("query")
-    return render_template("results.html")
+    return render_template("results.html", query = query)
 
 @app.route("/register", methods=["GET"])
 def serve_register_form():
@@ -115,11 +119,6 @@ def profile():
 	user = session.get("user", None)
 
 	return render_template("profile.html", user = user)
-
-@app.route("/results", methods=["GET"])
-def render_results():
-    text = request.form.get("squery")
-    return render_template("results.html")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)
