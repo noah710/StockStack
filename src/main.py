@@ -3,7 +3,8 @@ import json
 import datetime
 import hashlib
 import os
-
+import yfinance as yf
+import datetime
 
 from flask import (
     Flask,
@@ -115,10 +116,28 @@ def profile():
 	user = session.get("user", None)
 
 	return render_template("profile.html", user = user)
+	
+def get_default_ticker_info(ticker_symbol):
+
+    ticker = yf.Ticker(ticker_symbol)
+    info = ticker.info
+
+    asset_name = info.get('shortName', None)
+    description = info.get('longBusinessSummary', None)
+    country = info.get('country', None)
+
+    ticker_history_now = ticker.history(start = datetime.datetime.now(), end = datetime.datetime.now())
+    price_now_rounded = round(ticker_history_now, 2)
+    price_current = str(price_now_rounded['Close'].iloc[-1])
+
+    results = [ticker_symbol, asset_name, 'Country: ' + country, description, 'Current price: ' + price_current]
+
+    return results
 
 @app.route("/results", methods=["GET"])
 def render_results():
     text = request.form.get("squery")
+	results = get_default_ticker_info(text)
     return render_template("results.html")
 
 if __name__ == "__main__":
