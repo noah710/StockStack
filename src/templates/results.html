@@ -8,6 +8,9 @@
 
 <div class="toolbar">
 	<a href="/">Return Home</a>
+  <a href="/profile">  Profile  </a>
+  <a href="/aboutus">  About Us  </a>
+  <a href="/">  Log Out  </a>
 <form id="form" role="search">
   <input method = "post" type="search" id="query" name="q"
    placeholder="Enter ticker"
@@ -34,10 +37,6 @@
 {% else %}
   <p> Please enter a ticker to search for.. </p>
 {% endif %}
-  <a href="/"> Home </a>
-  <a href="/profile">  Profile  </a>
-  <a href="/aboutus">  About Us  </a>
-  <a href="/">  Log Out  </a>
 <!-- <body>
   <h1>Result for {{query}}</h1>
   <p>This is where the result will show up.</p>
