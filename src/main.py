@@ -61,7 +61,7 @@ def get_default_ticker_info(ticker_symbol):
 
     return results
 
-@app.route("/results")
+@app.route("/results", methods=["POST"])
 def loadResults():
     query = request.form.get("query")
     results = get_default_ticker_info(query)
