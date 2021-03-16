@@ -1,0 +1,4 @@
+Chris – html templates – user page + homepage 
+John – python functions for tickers 
+Nick – javascript routing 
+Noah- Register/login
