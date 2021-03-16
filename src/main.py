@@ -3,6 +3,7 @@ import json
 import datetime
 import hashlib
 import os
+import yfinance as yf
 
 
 from flask import (
@@ -43,10 +44,28 @@ def home():
 def search():
     return redirect("/results")
 
+def get_default_ticker_info(ticker_symbol):
+
+    ticker = yf.Ticker(ticker_symbol)
+    info = ticker.info
+
+    asset_name = info.get('shortName', None)
+    description = info.get('longBusinessSummary', None)
+    country = info.get('country', None)
+
+    ticker_history_now = ticker.history(start = datetime.datetime.now(), end = datetime.datetime.now())
+    price_now_rounded = round(ticker_history_now, 2)
+    price_current = str(price_now_rounded['Close'].iloc[-1])
+
+    results = [ticker_symbol, asset_name, 'Country: ' + country, description, 'Current price: ' + price_current]
+
+    return results
+
 @app.route("/results")
 def loadResults():
     query = request.form.get("query")
-    return render_template("results.html", query = query)
+    results = get_default_ticker_info(query)
+    return render_template("results.html", query = results)
 
 @app.route("/register", methods=["GET"])
 def serve_register_form():
