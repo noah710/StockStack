@@ -15,6 +15,7 @@ from flask import (
     jsonify,
     redirect,
     session,
+    make_response
 )
 
 ds_client = datastore.Client()
@@ -53,26 +54,45 @@ def get_default_ticker_info(ticker_symbol):
     description = info.get('longBusinessSummary', None)
     country = info.get('country', None)
 
-    ticker_history_now = ticker.history(start = datetime.datetime.now(), end = datetime.datetime.now())
-    price_now_rounded = round(ticker_history_now, 2)
-    price_current = str(price_now_rounded['Close'].iloc[-1])
+    if (isinstance(country, str) is not True):
+        country = 'N/A'
 
-    results = [ticker_symbol, asset_name, 'Country: ' + country, description, 'Current price: ' + price_current]
+    results = [ticker_symbol, asset_name, 'Country: ' + country, description]
 
     return results
+
+def get_default_dates_and_prices(ticker_symbol):
+    
+    ticker = yf.Ticker(ticker_symbol)
+    ticker_history = ticker.history(period = "1mo", interval = "1d")
+
+    dates = []
+    prices = []
+    for d in range(len(ticker_history.index)):
+        cur = str(ticker_history.index[d])
+        dates.append(cur[0:10])
+
+        price_rounded = round(ticker_history, 2)
+        price_cur_date = str(price_rounded['Close'].iloc[d])
+        prices.append(price_cur_date)
+
+    data = {dates[i]: prices[i] for i in range(len(dates))}
+
+    return data
 
 @app.route("/results", methods=["POST"])
 def loadResults():
     query = request.form.get("query")
     results = get_default_ticker_info(query)
-    return render_template("results.html", query = results)
+    data = get_default_dates_and_prices(query)
+    return render_template("results.html", query = results, data = json.dumps(data))
 
 @app.route("/register", methods=["GET"])
 def serve_register_form():
 
     return render_template("register.html")
 
-@app.route("/register", methods=["POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     # get user input
     username = request.form.get("username")
