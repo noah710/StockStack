@@ -4,41 +4,130 @@
   <link href="/static/style.css" rel="stylesheet">
 </head>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
 
+  google.charts.load('current', {'packages':['corechart', 'line']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    var dataJSON = '{{ data|tojson }}';
+    var dataSplit = dataJSON.split(',');
+
+    const dates = new Array();
+    const prices = new Array();
+    for (var i = 0; i < dataSplit.length; i++) {
+      var curData = dataSplit[i];
+      var curDataSplit = curData.split(':');
+
+      if (i === 0 || i === (dataSplit.length) - 1) {
+        if (i === 0) {
+          var firstPart = curDataSplit[0];
+          var splitFirst = firstPart.split('{');
+          dates.push(splitFirst[1]);
+          prices.push(curDataSplit[1]);
+        } else {
+          var firstPart = curDataSplit[1];
+          var splitFirst = firstPart.split('}');
+          dates.push(curDataSplit[0]);
+          prices.push(splitFirst[0]);
+        }
+      } else {
+        dates.push(curDataSplit[0]);
+        prices.push(curDataSplit[1]);
+      }
+    }
+
+    const datesFormatted = new Array();
+    const pricesFormatted = new Array();
+    for (var k = 0; k < dates.length; k++) {
+      var curDate = dates[k];
+      var splitDate = curDate.split('-');
+      if (k === 0) {
+        var year = splitDate[0].substring(1, 6);
+        var newDate = new Date(splitDate[0].substring(1, 6), splitDate[1] - 1, splitDate[2].substring(0, 2));
+        datesFormatted.push(newDate);
+      } else {
+        var year = splitDate[0].substring(2, 6);
+        var newDate = new Date(splitDate[0].substring(2, 6), splitDate[1] - 1, splitDate[2].substring(0, 2));
+        datesFormatted.push(newDate);
+      }
+      var priceCur = prices[k];
+      var subPrice = priceCur.substring(2, priceCur.length - 1);
+      var priceC = (Number(subPrice));
+      pricesFormatted.push(priceC);
+    }
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('date', 'Date');
+    data.addColumn('number', 'Price');
+
+    for (var m = 0; m < datesFormatted.length; m++) {
+      data.addRow([datesFormatted[m], pricesFormatted[m]]);
+    }
+
+    var dataCount = datesFormatted.length;
+
+    var options = {
+      title: 'Asset Performance (Past Month)',
+      pointsVisible: true,
+      pointSize: 3,
+      legend: {position: 'none'},
+      hAxis: {
+        format: 'MM/d',
+        gridlines: {count: 5},
+        pointSize: 2,
+        //title: 'Date',
+        titlePosition: 'none'
+      },
+      vAxis: {
+        title: 'Price'
+      }
+    };
+
+    var curPrice = pricesFormatted[pricesFormatted.length - 1];
+    console.log('CUR PRICE: ' + curPrice);
+    document.getElementById("myText").innerHTML = curPrice;
+
+    var chart = new google.visualization.LineChart(document.getElementById("curve_chart"));
+
+    chart.draw(data, options);
+  }
+  console.log("Script");
+</script>
 
 <div class="toolbar">
 	<a href="/">Return Home</a>
   <a href="/profile">  Profile  </a>
   <a href="/aboutus">  About Us  </a>
   <a href="/">  Log Out  </a>
-<form id="form" role="search">
-  <input method = "post" type="search" id="query" name="q"
-   placeholder="Enter ticker"
-   aria-label="Search for ticker">
-   <div class = "searchButton">
-     <a href="/results" class = "buttonStyle" align="center"> Search </a>
-     <style>
-       .buttonStyle {
-         font: bold 14px Arial;
-         text-decoration: none;
-         background-color: #EEEEEE;
-         border-top: 1px solid #CCCCCC;
-         border-right: 1px solid #333333;
-         border-bottom: 1px solid #333333;
-         border-left: 1px solid #CCCCCC;
-         color: #333333;
-         padding: 2px 6px 2px 6px;
-       }
-     </style>
-</form>
-</div>
+  <div class="centered">
+    <form action="/results" method="POST">
+      <p>
+        <label>Query</label>
+        <input type="text" id="query" name="query" required>
+      </p>
+
+
+      <button type="submit">Search</button>
+    </form>
+  </div>
 {% if query %}
-  <p>Results for {{query}}</p>
+  {% for r in query %}
+  <li>{{ r }}</li>
+  {% endfor %}
 {% else %}
   <p> Please enter a ticker to search for.. </p>
 {% endif %}
-<!-- <body>
-  <h1>Result for {{query}}</h1>
-  <p>This is where the result will show up.</p>
-</body> -->
+  <p>
+    <div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
+    <style>
+    .chart {
+      width: auto;
+      margin: 0 auto;
+    }
+    </style>
+    Current Price: $<span id="myText"></span>
+  </p>
 </html>
