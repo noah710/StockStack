@@ -62,7 +62,7 @@ def get_default_ticker_info(ticker_symbol):
     return results
 
 def get_default_dates_and_prices(ticker_symbol):
-
+    
     ticker = yf.Ticker(ticker_symbol)
     ticker_history = ticker.history(period = "1mo", interval = "1d")
 
