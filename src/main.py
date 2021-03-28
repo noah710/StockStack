@@ -41,10 +41,6 @@ def home():
     # add user variable to homepage
     return render_template("index.html", user = user)
 
-@app.route("/", methods=["GET", "POST"])
-def search():
-    return redirect("/results")
-
 def get_default_ticker_info(ticker_symbol):
 
     ticker = yf.Ticker(ticker_symbol)
@@ -80,7 +76,7 @@ def get_default_dates_and_prices(ticker_symbol):
 
     return data
 
-@app.route("/results", methods=["GET", "POST"])
+@app.route("/results", methods=["POST"])
 def loadResults():
     query = request.form.get("query")
     results = get_default_ticker_info(query)
@@ -92,7 +88,7 @@ def serve_register_form():
 
     return render_template("register.html")
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/register", methods=["POST"])
 def register():
     # get user input
     username = request.form.get("username")
