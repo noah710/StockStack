@@ -1,6 +1,6 @@
 html{background-color: lightgreen}
 h1{ text-align: center}
 body{ text-align: center }
-.toolbar{ background-color:green}
-a{text-decoration:none; color:white}
+.toolbar{ background-color:#25e325;  border: 5px solid black; padding-top: 5px;}
+a{text-decoration:none; color:white; padding-right: 10}
 label{color: white}
