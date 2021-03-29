@@ -1,5 +1,6 @@
-html,body
-{margin:0;padding:0}
-body{font: 76% arial,sans-serif;text-align:center}
-p{margin:0 10px 10px}
-a{padding:5px; text-decoration:none; color:#000000;}
+html{background-color: lightgreen}
+h1{ text-align: center}
+body{ text-align: center }
+.toolbar{ background-color:green}
+a{text-decoration:none; color:white}
+label{color: white}

@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>StockStack</title>
-	<h1> Stock Stack </h1>
 	 <link href="/static/style.css" rel="stylesheet">
 		<div class="toolbar">
+		<h1> Stock Stack </h1>
 	  {% if user %}
 		<a href="/profile">Profile</a>
 	  {% else %}
@@ -14,9 +14,6 @@
 	  {% endif %}
 		<a href="/aboutus">About Us</a>
 		<a href="/">Home</a>
-		
-
-	  <div class="centered">
 		<form action="/results" method="POST">
 		  <p>
 			<label>Search Ticker</label>
@@ -24,6 +21,7 @@
 			<button type="submit">Search</button>
 		  </p>
 		</form>
+		<br></br>
 	  </div>
 </head>
 <body>
