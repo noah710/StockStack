@@ -1,7 +1,7 @@
-html{background-color: lightgreen}
+html{background-color: white}
 h1{ text-align: center}
 body{ text-align: center }
-.toolbar{ background-color:#25e325;  border: 3px solid black; padding-top: 5px;}
+.toolbar{ background-color:#258be3;  border: 3px solid black; padding-top: 5px;}
 a{text-decoration:none; color:white; padding-right: 10}
 label{color: white}
 .chart{border: solid}
