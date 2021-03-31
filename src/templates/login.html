@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-Login to stockstack
+{% extends "base.html" %}
+{% block body %}
 <div class="centered">
     <form action="/login" method="POST">
       <p>
@@ -16,3 +16,4 @@ Login to stockstack
       <button type="submit">Log In</button>
     </form>
   </div>
+{% endblock %}

@@ -1,38 +1,8 @@
-<html>
-<head>
-  <title>Stock Portfolio</title>
-  <link href="/static/style.css" rel="stylesheet">
-</head>
-
-<div class="toolbar">
-  <!--
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#contact">User Profile</a>
-  -->
-  {% if user %}
-    <p>Hello {{user}}!</p>
-	<a href="/profile">Profile</a>
-  {% else %}
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-  {% endif %}
-	<a href="/aboutus">About Us</a>
-
-  <div class="centered">
-    <form action="/results" method="POST">
-      <p>
-        <label>Search Ticker</label>
-        <input type="text" id="query" name="query" required>
-      </p>
-
-
-      <button type="submit">Search</button>
-    </form>
-  </div>
-
-<body>
-  <h1>Stock Stack</h1>
+{% extends "base.html" %}
+{% block body %}
+{% if user %}
+		<p>Hello {{user}}!</p>
+{% endif %}
   <p>Welcome to our stock portfolio website. From here, you can search ticker symbols and add them to your account page.</p>
-</body>
-</html>
+{% endblock %}
+

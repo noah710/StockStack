@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>StockStack</title>
+	 <link href="/static/style.css" rel="stylesheet">
+		<div class="toolbar">
+		<h1> Stock Stack </h1>
+	  {% if user %}
+		<a href="/profile">Profile</a>
+	  {% else %}
+		<a href="/login">Login</a>
+		<a href="/register">Register</a>
+	  {% endif %}
+		<a href="/aboutus">About Us</a>
+		<a href="/">Home</a>
+		<form action="/results" method="POST">
+		  <p>
+			<input type="text" id="query" name="query" required>
+			<button type="submit">Search</button>
+		  </p>
+		</form>
+		<br></br>
+	  </div>
+</head>
+<body>
+<br></br>
+{% block body %}
+{% endblock %}
+</body>
+</html>

@@ -78,10 +78,14 @@ def get_default_dates_and_prices(ticker_symbol):
 
 @app.route("/results", methods=["POST"])
 def loadResults():
+	
+	 # check if there is an active session
+    user = session.get("user", None)
+	
     query = request.form.get("query")
     results = get_default_ticker_info(query)
     data = get_default_dates_and_prices(query)
-    return render_template("results.html", query = results, data = json.dumps(data))
+    return render_template("results.html", query = results, data = json.dumps(data), user = user)
 
 @app.route("/register", methods=["GET"])
 def serve_register_form():

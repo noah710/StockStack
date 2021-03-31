@@ -1,34 +1,8 @@
-<html>
-<head>
-  <title>{{user}}</title>
-  <link href="/static/style.css" rel="stylesheet">
-</head>
-<div class="toolbar">
-	<a href="/">Return Home</a>
-    <form id="form" role="search">
-  <input type="search" id="query" name="q"
-   placeholder="Enter ticker"
-   aria-label="Search for ticker">
-   <div class = "searchButton">
-     <a href="/results" class = "buttonStyle" align="center"> Search </a>
-     <style>
-       .buttonStyle {
-         font: bold 14px Arial;
-         text-decoration: none;
-         background-color: #EEEEEE;
-         border-top: 1px solid #CCCCCC;
-         border-right: 1px solid #333333;
-         border-bottom: 1px solid #333333;
-         border-left: 1px solid #CCCCCC;
-         color: #333333;
-         padding: 2px 6px 2px 6px;
-       }
-     </style>
-</form>
-</div>
-<body>
+{% extends "base.html" %}
+{% block body %}
   <h1>{{user}}'s Page</h1>
 </body>
 <h2>{{user}}'s Assets</h2>
 <p>This is where the user's asset's will show up</p>
-</html>
+{% endblock %}
+

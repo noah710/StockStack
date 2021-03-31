@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-Register with stockstack
+{% extends "base.html" %}
+{% block body %}
 <div class="centered">
     <form action="/register" method="POST">
       <p>
@@ -16,3 +16,4 @@ Register with stockstack
       <button type="submit">Register</button>
     </form>
   </div>
+{% endblock %}
