@@ -58,7 +58,7 @@ def get_default_ticker_info(ticker_symbol):
     return results
 
 def get_default_dates_and_prices(ticker_symbol):
-    
+
     ticker = yf.Ticker(ticker_symbol)
     ticker_history = ticker.history(period = "1mo", interval = "1d")
 
@@ -78,10 +78,10 @@ def get_default_dates_and_prices(ticker_symbol):
 
 @app.route("/results", methods=["POST"])
 def loadResults():
-	
+
 	 # check if there is an active session
     user = session.get("user", None)
-	
+
     query = request.form.get("query")
     results = get_default_ticker_info(query)
     data = get_default_dates_and_prices(query)
@@ -143,6 +143,11 @@ def handle_login():
     # make new session and redirect to home page
     session["user"] = username
     return redirect("/")
+
+@app.route("/logout", methods=['POST'])
+def handle_logout():
+    session.clear();
+    return redirect("/login");
 
 @app.route("/aboutus", methods=["GET"])
 def about_us():

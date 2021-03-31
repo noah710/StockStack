@@ -2,22 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>StockStack</title>
+	<title class = "base-title" >StockStack</title>
 	 <link href="/static/style.css" rel="stylesheet">
 		<div class="toolbar">
-		<h1> Stock Stack </h1>
+		<h1 class = "base-title" > STOCK STACK </h1>
 	  {% if user %}
-		<a href="/profile">Profile</a>
+		<form action="/logout" method="POST">
+      <button class = "menu-buttons">log out</button>
+    </form>
+		<form action="/profile" method="GET">
+      <button class = "menu-buttons">profile</button>
+    </form>
 	  {% else %}
-		<a href="/login">Login</a>
-		<a href="/register">Register</a>
+		<form action="/login" method="GET">
+      <button class = "menu-buttons">log in</button>
+    </form>
+		<form action="/register" method="GET">
+      <button class = "menu-buttons">register</button>
+    </form>
 	  {% endif %}
-		<a href="/aboutus">About Us</a>
-		<a href="/">Home</a>
+		<form action="/" method="GET">
+      <button class = "menu-buttons">home</button>
+    </form>
+		<form action="/aboutus" method="GET">
+     <button class = "menu-buttons">about us</button>
+    </form>
 		<form action="/results" method="POST">
 		  <p>
-			<input type="text" id="query" name="query" required>
-			<button type="submit">Search</button>
+			<input class="search-bar" type="text" id="query" name="query" required>
+			<button class="search-button" type="submit">search</button>
 		  </p>
 		</form>
 		<br></br>
