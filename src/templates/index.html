@@ -8,16 +8,78 @@
   <div class="curators-picks">
   <h2>Curator's Picks</h2>
 	  <p>These are some recommended stocks hand-picked by the team at Stock Stack.</p>
-	  <label>MSFT (Microsoft): <p id="msft">{{price1}}</p></label>
-	  <label>TSLA (Tesla): <p id="tsla">{{price2}}</p></label>
-	  <label>AAPL (Apple): <p id="aapl">{{price3}}</p></label>
-	  <label>GE (General Electric): <p id="ge">{{price4}}</p></label>
-	  <label>AMZN (Amazon): <p id="amzn">{{price5}}</p></label>
-	  <label>NVDA (Nvidia): <p id="nvda">{{price6}}</p></label>
-	  <label>FB (Facebook): <p id="fb">{{price7}}</p></label>
-	  <label>AMD (AMD): <p id="amd">{{price8}}</p></label>
-	  <label>NFLX (Netflix): <p id="nflx">{{price9}}</p></label>
-	  <label>TWTR (Twitter): <p id="twtr">{{price10}}</p></label>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="MSFT" required/></input>
+				<p id="msft">{{price1}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="TSLA" required/></input>
+	  <p id="tsla">{{price2}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="AAPL" required/></input>
+	  <p id="aapl">{{price3}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="GE" required/></input>
+	  <p id="ge">{{price4}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="AMZN" required/></input>
+	  <p id="amzn">{{price5}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="NVDA" required/></input>
+	  <p id="nvda">{{price6}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="FB" required/></input>
+	  <p id="fb">{{price7}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="AMD" required/></input>
+	  <p id="amd">{{price8}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="NFLX" required/></input>
+	  <p id="nflx">{{price9}}</p>
+	  </p>
+	  </form>
+	  
+	  <form action="/results" method="POST">
+		  <p>
+			<input type="submit" name="query" class="query" value="TWTR" required/></input>
+	  <p id="twtr">{{price10}}</p>
+	  </p>
+	  </form>
+	  
+	  
   </div>
   
   <script>
