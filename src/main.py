@@ -37,9 +37,52 @@ def home():
 
     # check if there is an active session
     user = session.get("user", None)
+    
+    #disgustingly hard-coded price-getter for curator's picks
+    msft_ticker = yf.Ticker("msft")
+    datas = msft_ticker.history()
+    print(datas)
+    last_quote1 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    tsla_ticker = yf.Ticker("tsla")
+    datas = tsla_ticker.history()
+    last_quote2 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    aapl_ticker = yf.Ticker("aapl")
+    datas = aapl_ticker.history()
+    last_quote3 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    ge_ticker = yf.Ticker("ge")
+    datas = ge_ticker.history()
+    last_quote4 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    amzn_ticker = yf.Ticker("amzn")
+    datas = amzn_ticker.history()
+    last_quote5 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    nvda_ticker = yf.Ticker("nvda")
+    datas = nvda_ticker.history()
+    last_quote6 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    fb_ticker = yf.Ticker("fb")
+    datas = fb_ticker.history()
+    last_quote7 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    amd_ticker = yf.Ticker("amd")
+    datas = amd_ticker.history()
+    last_quote8 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    nflx_ticker = yf.Ticker("nflx")
+    datas = nflx_ticker.history()
+    last_quote9 = round((datas.tail(1)['Close'].iloc[0]), 2)
+    
+    twtr_ticker = yf.Ticker("twtr")
+    datas = twtr_ticker.history()
+    last_quote10 = round((datas.tail(1)['Close'].iloc[0]), 2)
 
+    
     # add user variable to homepage
-    return render_template("index.html", user = user)
+    return render_template("index.html", user = user, price1 = last_quote1, price2 = last_quote2, price3 = last_quote3, price4 = last_quote4, price5 = last_quote5, price6 = last_quote6, price7 = last_quote7, price8 = last_quote8, price9 = last_quote9, price10 = last_quote10)
 
 def get_default_ticker_info(ticker_symbol):
 
