@@ -5,18 +5,20 @@
 {% endif %}
   <p>Welcome to our stock portfolio website. From here, you can search ticker symbols and add them to your account page.</p>
   <br></br>
+  <div class="curators-picks">
   <h2>Curator's Picks</h2>
-  <p>These are some recommended stocks hand-picked by the team at Stock Stack.</p>
-  <li id="msft">MSFT (Microsoft): {{price1}}</li>
-  <li id="tsla">TSLA (Tesla): {{price2}}</li>
-  <li id="aapl">AAPL (Apple): {{price3}}</li>
-  <li id="ge">GE (General Electric): {{price4}}</li>
-  <li id="amzn">AMZN (Amazon): {{price5}}</li>
-  <li id="nvda">NVDA (Nvidia): {{price6}}</li>
-  <li id="fb">FB (Facebook): {{price7}}</li>
-  <li id="amd">AMD (AMD): {{price8}}</li>
-  <li id="nflx">NFLX (Netflix): {{price9}}</li>
-  <li id="twtr">TWTR (Twitter): {{price10}}</li>
+	  <p>These are some recommended stocks hand-picked by the team at Stock Stack.</p>
+	  <label>MSFT (Microsoft): <p id="msft">{{price1}}</p></label>
+	  <label>TSLA (Tesla): <p id="tsla">{{price2}}</p></label>
+	  <label>AAPL (Apple): <p id="aapl">{{price3}}</p></label>
+	  <label>GE (General Electric): <p id="ge">{{price4}}</p></label>
+	  <label>AMZN (Amazon): <p id="amzn">{{price5}}</p></label>
+	  <label>NVDA (Nvidia): <p id="nvda">{{price6}}</p></label>
+	  <label>FB (Facebook): <p id="fb">{{price7}}</p></label>
+	  <label>AMD (AMD): <p id="amd">{{price8}}</p></label>
+	  <label>NFLX (Netflix): <p id="nflx">{{price9}}</p></label>
+	  <label>TWTR (Twitter): <p id="twtr">{{price10}}</p></label>
+  </div>
   
   <script>
   var p1 = '{{price1}}';
