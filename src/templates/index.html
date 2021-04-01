@@ -7,16 +7,89 @@
   <br></br>
   <h2>Curator's Picks</h2>
   <p>These are some recommended stocks hand-picked by the team at Stock Stack.</p>
-  <li>MSFT (Microsoft): {{price1}}</li>
-  <li>TSLA (Tesla): {{price2}}</li>
-  <li>AAPL (Apple): {{price3}}</li>
-  <li>GE (General Electric): {{price4}}</li>
-  <li>AMZN (Amazon): {{price5}}</li>
-  <li>NVDA (Nvidia): {{price6}}</li>
-  <li>FB (Facebook): {{price7}}</li>
-  <li>AMD (AMD): {{price8}}</li>
-  <li>NFLX (Netflix): {{price9}}</li>
-  <li>TWTR (Twitter): {{price10}}</li>
+  <li id="msft">MSFT (Microsoft): {{price1}}</li>
+  <li id="tsla">TSLA (Tesla): {{price2}}</li>
+  <li id="aapl">AAPL (Apple): {{price3}}</li>
+  <li id="ge">GE (General Electric): {{price4}}</li>
+  <li id="amzn">AMZN (Amazon): {{price5}}</li>
+  <li id="nvda">NVDA (Nvidia): {{price6}}</li>
+  <li id="fb">FB (Facebook): {{price7}}</li>
+  <li id="amd">AMD (AMD): {{price8}}</li>
+  <li id="nflx">NFLX (Netflix): {{price9}}</li>
+  <li id="twtr">TWTR (Twitter): {{price10}}</li>
+  
+  <script>
+  var p1 = '{{price1}}';
+  var p1b = '{{price1b}}';
+  if(p1 < p1b)
+	document.getElementById("msft").style.color = "red";
+	else
+		document.getElementById("msft").style.color = "green";
+  
+  var p2 = '{{price2}}';
+  var p2b = '{{price2b}}';
+  if(p2 < p2b)
+	document.getElementById("tsla").style.color = "red";
+	else
+		document.getElementById("tsla").style.color = "green";
+  
+  var p3 = '{{price3}}';
+  var p3b = '{{price3b}}';
+  if(p1 < p1b)
+	document.getElementById("aapl").style.color = "red";
+	else
+		document.getElementById("aapl").style.color = "green";
+  
+  var p4 = '{{price4}}';
+  var p4b = '{{price4b}}';
+  if(p4 < p4b)
+	document.getElementById("ge").style.color = "red";
+	else
+		document.getElementById("ge").style.color = "green";
+  
+  var p5 = '{{price5}}';
+  var p5b = '{{price5b}}';
+  if(p5 < p5b)
+	document.getElementById("amzn").style.color = "red";
+	else
+		document.getElementById("amzn").style.color = "green";
+  
+  var p6 = '{{price6}}';
+  var p6b = '{{price6b}}';
+  if(p6 < p6b)
+	document.getElementById("nvda").style.color = "red";
+	else
+		document.getElementById("nvda").style.color = "green";
+  
+  var p7 = '{{price7}}';
+  var p7b = '{{price7b}}';
+  if(p7 < p7b)
+	document.getElementById("fb").style.color = "red";
+	else
+		document.getElementById("fb").style.color = "green";
+  
+  var p8 = '{{price8}}';
+  var p8b = '{{price8b}}';
+  if(p8 < p8b)
+	document.getElementById("amd").style.color = "red";
+	else
+		document.getElementById("amd").style.color = "green";
+  
+  var p9 = '{{price9}}';
+  var p9b = '{{price9b}}';
+  if(p9 < p9b)
+	document.getElementById("nflx").style.color = "red";
+	else
+		document.getElementById("nflx").style.color = "green";
+  
+  var p10 = '{{price10}}';
+  var p10b = '{{price10b}}';
+  if(p10 < p10b)
+	document.getElementById("twtr").style.color = "red";
+	else
+		document.getElementById("twtr").style.color = "green";
+  
+  </script>
   
 {% endblock %}
 
