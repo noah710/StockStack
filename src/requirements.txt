@@ -23,11 +23,13 @@ pyasn1-modules==0.2.8
 pyparsing==2.4.7
 pytz==2021.1
 PyYAML==5.4.1
+requests-html
 requests==2.25.1
 rsa==4.7.2
 six==1.15.0
 typing-extensions==3.7.4.3
 typing-inspect==0.6.0
 urllib3==1.26.3
+yahoo-fin==0.8.8
 yfinance==0.1.55
 Werkzeug==1.0.1

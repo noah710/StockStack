@@ -4,7 +4,7 @@ import datetime
 import hashlib
 import os
 import yfinance as yf
-
+from yahoo_fin import stock_info as si
 
 from flask import (
     Flask,
@@ -95,6 +95,13 @@ def home():
     return render_template("index.html", user = user, price1 = last_quote1, price2 = last_quote2, price3 = last_quote3, price4 = last_quote4, price5 = last_quote5, price6 = last_quote6, price7 = last_quote7, price8 = last_quote8, price9 = last_quote9, price10 = last_quote10,
     price1b = before1, price2b = before2, price3b = before3, price4b = before4, price5b = before5, price6b = before6, price7b = before7, price8b = before8, price9b = before9, price10b = before10)
 
+class UserTickerData:
+    def __init__(self, symbol, buy_price, amount, date):
+        self.symbol = symbol
+        self.buy_price = buy_price
+        self.amount = amount
+        self.date = date
+
 def get_default_ticker_info(ticker_symbol):
 
     ticker = yf.Ticker(ticker_symbol)
@@ -129,6 +136,48 @@ def get_default_dates_and_prices(ticker_symbol):
     data = {dates[i]: prices[i] for i in range(len(dates))}
 
     return data
+
+# Function returns portfolio base price (price paid for all assets), portfolio current price, and overall percentage gain/loss
+def calculate_net_worth_data(ticker_list):
+
+    return_list = []
+
+    tickers = {}
+    base_worth = 0
+
+    # First calculate the portfolio base price
+    for t in ticker_list:
+        tickers[t.symbol] = t.amount
+
+        # Calculate portfolio base worth 
+        base_worth = base_worth + (t.buy_price * t.amount)
+
+    cur_worth = 0
+
+    for k, v in tickers.items():
+        ticker = yf.Ticker(k)
+        todays_data = ticker.history(period='1d')
+        cur_worth = cur_worth + (todays_data['Close'][0] * v)
+
+    base_rounded = round(base_worth, 2)
+    cur_rounded = round(cur_worth, 2)
+
+    percent_change = round((cur_rounded / base_rounded * 100 - 100), 3)
+
+    base_final = format(base_rounded, '.2f')
+    cur_final = format(cur_rounded, '.2f')
+
+    return_list.append(base_final)
+    return_list.append(cur_final)
+    return_list.append(percent_change)
+    return return_list
+
+def get_top_gainers():
+    top_gainers = si.get_day_gainers()
+    
+    for x in range(10):
+        print(str(x + 1) + '.\n' + str(top_gainers['Symbol'][x]) + '\nName: ' + str(top_gainers['Name'][x]) + '\nPrice (Intraday): $' + 
+        str(top_gainers['Price (Intraday)'][x]) + '\nChange ($): +$' + str(top_gainers['Change'][x]) + '\nPercent Change: +' + str(top_gainers["% Change"][x]) + "%\n")
 
 @app.route("/results", methods=["POST"])
 def loadResults():
