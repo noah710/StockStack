@@ -89,4 +89,7 @@ form {
 .query{
 	border: 0;
 	background-color: white;
+	font-weight: bold;
+	text-decoration: underline;
+	color: blue;
 }
