@@ -41,7 +41,6 @@ def home():
     #disgustingly hard-coded price-getter for curator's picks
     msft_ticker = yf.Ticker("msft")
     datas = msft_ticker.history()
-    print(datas)
     last_quote1 = round((datas.tail(1)['Close'].iloc[0]), 2)
     before1 = round((datas.tail(2)['Close'].iloc[0]), 2)
     
