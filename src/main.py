@@ -248,7 +248,9 @@ def handle_login():
 
 @app.route("/logout", methods=['POST'])
 def handle_logout():
+    # remove current user's session
     session.clear();
+    # redirect to the login page 
     return redirect("/login");
 
 @app.route("/aboutus", methods=["GET"])
