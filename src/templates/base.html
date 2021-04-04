@@ -7,17 +7,17 @@
 		<div class="toolbar">
 		<h1 class = "base-title" > STOCK STACK </h1>
 	  {% if user %}
-		<form action="/logout" method="POST">
+		<form action="/auth/logout" method="POST">
       <button class = "menu-buttons">log out</button>
     </form>
 		<form action="/profile" method="GET">
       <button class = "menu-buttons">profile</button>
     </form>
 	  {% else %}
-		<form action="/login" method="GET">
+		<form action="/auth/login" method="GET">
       <button class = "menu-buttons">log in</button>
     </form>
-		<form action="/register" method="GET">
+		<form action="/auth/register" method="GET">
       <button class = "menu-buttons">register</button>
     </form>
 	  {% endif %}

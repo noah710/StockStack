@@ -4,5 +4,25 @@
 </body>
 <h2>{{user}}'s Assets</h2>
 <p>This is where the user's asset's will show up</p>
+
+<p>Add assets with this form</p>
+<form action="/profile/add" method="POST">
+  <p>
+  <label for="ticker">Ticker:</label>
+  <input type="text" id="ticker" name="ticker"><br><br>
+  <label for="price">Price:</label>
+  <input type="text" id="price" name="price"><br><br>
+  <label for="amount">Amount:</label>
+  <input type="text" id="amount" name="amount"><br><br>
+  <label for="date">Date:</label>
+  <input type="text" id="date" name="date"><br><br>
+  <button class="search-button" type="submit">Add Asset</button>
+  </p>
+</form>
+
+<p>View my assets as raw json</p>
+<form action="/profile/get" method="GET">
+ <button class = "search-button">View Assets</button>
+</form>
 {% endblock %}
 
