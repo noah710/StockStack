@@ -72,3 +72,4 @@ def get_tickers_for_user():
         return -1
     print(user_portfolio["data"])
     return user_portfolio["data"]
+    
