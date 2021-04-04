@@ -18,10 +18,17 @@ from flask import (
     make_response
 )
 
+# blueprints
+from profile import blueprint as profile_blueprint
+
+
 ds_client = datastore.Client()
 
 app = Flask(__name__)
 app.secret_key = os.urandom(12)
+
+# handle all profile requests in profile.py
+app.register_blueprint(profile_blueprint, url_prefix="/profile")
 
 def hash_password(password, salt):
     """This will give us a hashed password that will be extremlely difficult to
@@ -181,7 +188,7 @@ def get_top_gainers():
 @app.route("/results", methods=["POST"])
 def loadResults():
 
-	 # check if there is an active session
+     # check if there is an active session
     user = session.get("user", None)
 
     query = request.form.get("query")
@@ -256,61 +263,9 @@ def handle_logout():
 @app.route("/aboutus", methods=["GET"])
 def about_us():
 
-	user = session.get("user", None)
-
-	return render_template("aboutus.html", user = user)
-
-@app.route("/profile", methods=["GET"])
-def profile():
-
-	#load the user from the session. You can only access the profile page after logging in, so this should always load.
-	user = session.get("user", None)
-
-	return render_template("profile.html", user = user)
-
-@app.route("/profile/add", methods=["POST"])
-def add_to_portfolio():
     user = session.get("user", None)
-    portfolio_key = ds_client.key("Portfolio", user)
 
-    ticker = request.form.get("ticker")
-    price = request.form.get("price")
-    amount = request.form.get("amount")
-    date = request.form.get("date")
-
-    #user_entry = {'ticker':ticker, 'price':price, 'amount':amount, 'date':date}
-
-
-    # check if the user has a portfolio    
-    user_portfolio = ds_client.get(portfolio_key)
-    #if this user has no portfolio, make a new one for user and update
-    if user_portfolio is None:
-        user_portfolio = datastore.Entity(key=portfolio_key)
-        user_entry = [{'ticker':ticker, 'price':price, 'amount':amount, 'date':date}]
-        user_portfolio["data"] = json.dumps(user_entry)
-        print(user_portfolio["data"])
-        ds_client.put(user_portfolio)
-    # else this user has a portfolio, update it with this ticker
-    else:
-        user_entry = {'ticker':ticker, 'price':price, 'amount':amount, 'date':date}
-        current_data = json.loads(user_portfolio["data"])
-        current_data.append(user_entry)
-        user_portfolio["data"] = json.dumps(current_data)
-        print(user_portfolio["data"])
-        ds_client.put(user_portfolio)
-
-    return redirect("/profile")
-
-@app.route("/profile/get", methods=["GET"])
-def get_tickers_for_user():
-    user = session.get("user", None)
-    portfolio_key = ds_client.key("Portfolio", user)
-    user_portfolio = ds_client.get(portfolio_key)
-
-    if user_portfolio is None:
-        return -1
-    print(user_portfolio["data"])
-    return user_portfolio["data"]
+    return render_template("aboutus.html", user = user)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=8080, debug=True)
