@@ -7,7 +7,7 @@ $(document).ready(function() {
   var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() { 
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
+            xhr_cb(xmlHttp.responseText);
     }
     xmlHttp.open("GET", "/sendYF", true); // true for asynchronous 
     xmlHttp.send(null);
