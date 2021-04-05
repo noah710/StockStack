@@ -1,9 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<!-- chart api -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+	<!-- http://jquery.com/ -->
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+	<!-- http://getbootstrap.com/ -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<!-- our script -->
+	<script src="/static/scripts/script.js"></script>
+
+
 	<meta charset="UTF-8">
 	<title class = "base-title" >StockStack</title>
-	 <link href="/static/style.css" rel="stylesheet">
+	 <link href="/static/style/style.css" rel="stylesheet">
 		<div class="toolbar">
 		<h1 class = "base-title" > STOCK STACK </h1>
 	  {% if user %}
@@ -29,13 +43,17 @@
     </form>
 		<form action="/results" method="POST">
 		  <p>
+				<script>  google.charts.load('current', {'packages':['corechart', 'line']});
+				  google.charts.setOnLoadCallback(drawChart); </script>
+					
 			<input class="search-bar" type="text" id="query" name="query" required>
-			<button class="search-button" type="submit">search</button>
+			<button class="search-button" onClick="drawChart()" type="submit">search</button>
 		  </p>
 		</form>
 		<br></br>
 	  </div>
 </head>
+
 <body>
 <br></br>
 {% block body %}
