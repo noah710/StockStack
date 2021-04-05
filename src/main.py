@@ -209,7 +209,7 @@ def fetch():
     # Others == si.tickers_other()
 
     # all tickers in currently selected list
-    #print(ticker_list)
+    print(ticker_list)
 
     #initialize and fill new array with data objects
     dataArr = [len(ticker_list)]
@@ -218,7 +218,7 @@ def fetch():
     for x in range(0, len(ticker_list)-1):
         for ticker in ticker_list:
             dataArr[x] = si.get_data(ticker)
-            #print(dataArr[0][0])
+            print(dataArr[x])
 
     # return jsonified data to script
     print(jsonify("printing data jsonified: " + dataArr))
