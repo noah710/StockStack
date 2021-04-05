@@ -1,7 +1,16 @@
 
-
+// ! lets move this out of static so we'll see changes
 
 $(document).ready(function() {
+
+  console.log("starting xhr")
+  var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", "/sendYF", true); // true for asynchronous 
+    xmlHttp.send(null);
 
 console.log("ready")
   // pull from Flask route
@@ -20,4 +29,11 @@ console.log("ready")
 // testing search results
 function searchResults(query) {
   return 'query';
+}
+
+
+function xhr_cb(data){
+  
+  console.log(data);
+
 }

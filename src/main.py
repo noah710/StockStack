@@ -198,7 +198,7 @@ def about_us():
 
     return render_template("aboutus.html", user = user)
 
-@app.route("/sendYF")
+@app.route("/sendYF", methods=["GET"])
 def fetch():
     # pull from yf_nasdaq db
     ticker_list = si.tickers_nasdaq()
