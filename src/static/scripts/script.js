@@ -9,9 +9,10 @@ $(document).ready(function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             xhr_cb(xmlHttp.responseText);
     }
-    xmlHttp.open("GET", "/sendYF", true); // true for asynchronous 
+    xmlHttp.open("GET", "/sendYF/GE", true); // true for asynchronous 
     xmlHttp.send(null);
 
+    /*
 console.log("ready")
   // pull from Flask route
   $.ajax({
@@ -26,6 +27,7 @@ console.log("ready")
       }
   });
 });
+*/
 // testing search results
 function searchResults(query) {
   return 'query';
@@ -37,3 +39,4 @@ function xhr_cb(data){
   console.log(data);
 
 }
+
