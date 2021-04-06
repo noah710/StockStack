@@ -201,7 +201,7 @@ def about_us():
 @app.route("/sendYF/<ticker>", methods=["GET"])
 def fetch(ticker):
     # pull from yf_nasdaq db
-    #ticker_list = si.tickers_nasdaq()
+    ticker_list = si.tickers_nasdaq()
 
     # calls for variation
     # Dow == si.tickers_dow()
@@ -213,14 +213,14 @@ def fetch(ticker):
 
     #initialize and fill new array with data objects
     data = si.get_data(ticker)['open'][-1] # select last element of open column
-    print(data)
+    print("data = " + data)
 
     # nested for loop to fill data array
     #for x in range(0, len(ticker_list)-1):
     #    for ticker in ticker_list:
     #        dataArr[x] = si.get_data(ticker) # if there's multiple tickers here, dataArr[x] will be overwritten and only the last ticker will be stored at dataArr[x]
     #        print(dataArr[x])
-    
+
     #for x in range(0, len(ticker_list)-1):
     #    for ticker in ticker_list:
             #dataArr[x] = si.get_data(ticker)
@@ -230,7 +230,8 @@ def fetch(ticker):
     #print("printing data jsonified: " + str(jsonify(data)))
 
     #return jsonified data array
-    return jsonify(data)
+    Data = xmltodict.parse(data)
+    return jsonify(Data)
 
 
 if __name__ == "__main__":
