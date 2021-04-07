@@ -60,7 +60,7 @@ function fill_in_prices(){
                     insert_price(xhr_reqs[i].responseText, ticker_price_cell);
             }
             // request the portfolio then wait for the response with portfolio_cb
-            xhr_reqs[i].open("GET", "/api/ticker_price/" + ticker_name, true); // true for asynchronous 
+            xhr_reqs[i].open("GET", "/api/ticker_price_change/" + ticker_name, true); // true for asynchronous 
             xhr_reqs[i].send(null);
         })(i);
     }
