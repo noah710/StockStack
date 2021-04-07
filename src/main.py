@@ -20,6 +20,7 @@ from flask import (
 # blueprints
 from profile import blueprint as profile_blueprint
 from auth import blueprint as auth_blueprint
+from api import blueprint as api_blueprint
 
 ds_client = datastore.Client()
 
@@ -29,6 +30,7 @@ app.secret_key = os.urandom(12)
 # handle all profile requests in profile.py
 app.register_blueprint(profile_blueprint, url_prefix="/profile")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
+app.register_blueprint(api_blueprint, url_prefix="/api")
 
 @app.route("/")
 def home():
@@ -213,7 +215,8 @@ def fetch(ticker):
 
     #initialize and fill new array with data objects
     data = si.get_data(ticker)['open'][-1] # select last element of open column
-    print("data = " + data)
+    # !! this print causing an error
+    #print("data = " + data)
 
     # nested for loop to fill data array
     #for x in range(0, len(ticker_list)-1):
@@ -230,8 +233,11 @@ def fetch(ticker):
     #print("printing data jsonified: " + str(jsonify(data)))
 
     #return jsonified data array
-    Data = xmltodict.parse(data)
-    return jsonify(Data)
+    
+    # xmltodict is causing an error here, just gonna json the data
+    #Data = xmltodict.parse(data)
+    
+    return jsonify(data)
 
 
 if __name__ == "__main__":

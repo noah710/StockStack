@@ -1,8 +1,5 @@
-
-// ! lets move this out of static so we'll see changes
-
 $(document).ready(function() {
-
+  
   console.log("starting xhr")
   var xmlHttp = new XMLHttpRequest();
     // document is loaded
@@ -69,13 +66,9 @@ console.log("ready")
 
         }
       }
-});
-*/
-// testing search results
-function searchResults(query) {
-  return 'query';
-}
-
+  });
+  */
+//});
 
 function xhr_cb(data){
 

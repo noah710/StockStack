@@ -4,9 +4,28 @@
 </body>
 <h2>{{user}}'s Assets</h2>
 <p>This is where the user's asset's will show up</p>
+<script src="/static/scripts/portfolio.js"></script>
+
+<style>
+ .center {
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+<table id=portolio_table class=center>
+  <tbody>
+  <tr>
+  <td>Ticker</td>
+  <td>Buy Price</td>
+  <td>Amount</td>
+  <td>Date</td>
+  </tr>
+  </tbody>
+</table>
 
 <p>Add assets with this form</p>
-<form action="/profile/add" method="POST">
+<form action="/profile/add_ticker" method="POST">
   <p>
   <label for="ticker">Ticker:</label>
   <input type="text" id="ticker" name="ticker"><br><br>
@@ -20,9 +39,13 @@
   </p>
 </form>
 
-<p>View my assets as raw json</p>
-<form action="/profile/get" method="GET">
- <button class = "search-button">View Assets</button>
+<p>Remove Ticker from portfolio</p>
+<form action="/profile/remove_ticker" method="POST">
+  <p>
+  <label for="ticker">Ticker:</label>
+  <input type="text" id="ticker" name="ticker">
+  <button class="search-button" type="submit">Remove</button>
+  </p>
 </form>
 {% endblock %}
 

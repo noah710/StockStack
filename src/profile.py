@@ -29,7 +29,7 @@ def profile():
     else:
         return render_template("profile.html", user = user)
 
-@blueprint.route("/add", methods=["POST"])
+@blueprint.route("/add_ticker", methods=["POST"])
 def add_to_portfolio():
     user = session.get("user", None)
     portfolio_key = ds_client.key("Portfolio", user)
@@ -62,7 +62,7 @@ def add_to_portfolio():
 
     return redirect("/profile")
 
-@blueprint.route("/get", methods=["GET"])
+@blueprint.route("/portfolio", methods=["GET"])
 def get_tickers_for_user():
     user = session.get("user", None)
     portfolio_key = ds_client.key("Portfolio", user)
@@ -71,5 +71,29 @@ def get_tickers_for_user():
     if user_portfolio is None:
         return -1
     print(user_portfolio["data"])
-    return user_portfolio["data"]
-    
+    return jsonify(json.loads(user_portfolio["data"]))
+
+@blueprint.route("/remove_ticker", methods=["POST"])
+def remove_ticker():
+    user = session.get("user", None)
+    portfolio_key = ds_client.key("Portfolio", user)
+
+    # get ticker to remove
+    ticker = request.form.get("ticker")
+
+    # load in users portfolio
+    user_portfolio = ds_client.get(portfolio_key)
+    entries = json.loads(user_portfolio["data"])
+
+    # look for and remove ticker
+    for i, entry in enumerate(entries):
+        if entry["ticker"] == ticker:
+            entries.pop(i)
+            user_portfolio["data"] = json.dumps(entries)
+            print("Removed ticker {} from position {} from user {}".format(ticker, i, user))
+            # update db
+            ds_client.put(user_portfolio)
+            return jsonify(success=True)
+
+
+    return jsonify(success=False)
