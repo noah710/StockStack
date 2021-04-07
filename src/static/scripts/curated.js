@@ -29,7 +29,7 @@ function curated_cb(data){
         
         // set cells to data
         cell_ticker.innerHTML = curated_tickers[i]
-        cell_price.innerHTML = -1
+        cell_price.innerHTML = "--"
     }
     fill_in_prices()
         
