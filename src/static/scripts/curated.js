@@ -19,6 +19,9 @@ function curated_cb(data){
 
     // get table
     var table = document.getElementById("curated_stocks");
+    var name_base = '<a href="/results/' // start with this
+    var name_mid = '">'// append ticker, then append this
+    var name_end = '</a>' // append ticker, then append this
     // for each element, add an entry to the table
     for(let i = 0; i < curated_tickers.length; i++){
         // add new row to table
@@ -27,8 +30,10 @@ function curated_cb(data){
         var cell_ticker = row.insertCell(0)
         var cell_price = row.insertCell(1)
         
-        // set cells to data
-        cell_ticker.innerHTML = curated_tickers[i]
+        // set ticker to results hyperlink
+        // will look like  <a href="/results/TICKER">TICKER</a>
+        // to extract ticker name, innerHTML.split(">")[1].split("<")[0]
+        cell_ticker.innerHTML = name_base + curated_tickers[i] + name_mid + curated_tickers[i] + name_end
         cell_price.innerHTML = "--"
     }
     fill_in_prices()
@@ -48,6 +53,7 @@ function fill_in_prices(){
     for (var i = 1; i < table.rows.length; i++){
         (function(i){
             var ticker_name = table.rows[i].cells[0].innerHTML
+            var ticker_name = ticker_name.split(">")[1].split("<")[0] // retrieve only ticker
             var ticker_price_cell = table.rows[i].cells[1] // going to tell callback put price here
 
             // get price

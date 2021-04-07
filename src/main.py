@@ -147,6 +147,18 @@ def loadResults():
     data = get_default_dates_and_prices(query)
     return render_template("results.html", query = results, data = json.dumps(data), user = user)
 
+@app.route("/results/<ticker>", methods=["GET"])
+def loadResults_get(ticker):
+
+     # check if there is an active session
+    user = session.get("user", None)
+
+    # retrieve query from search bar
+    query = ticker
+    results = get_default_ticker_info(query)
+    data = get_default_dates_and_prices(query)
+    return render_template("results.html", query = results, data = json.dumps(data), user = user)
+
 @app.route("/aboutus", methods=["GET"])
 def about_us():
 
