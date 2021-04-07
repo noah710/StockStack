@@ -24,8 +24,11 @@ def get_price(ticker):
     ### Input: string ticker
     ### Output: json numpy.float64 price
 
+    # !! lets add a red green thing here too
+
     ticker_yahoo = yf.Ticker(ticker)
     data = ticker_yahoo.history()
     current_price = round(data.tail(1)['Close'].iloc[0], 2) # this gets the last close price and rounds to 2 decimal places
 
     return jsonify(current_price)
+    

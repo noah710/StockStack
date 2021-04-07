@@ -40,61 +40,15 @@ def home():
     # check if there is an active session
     user = session.get("user", None)
 
-    #disgustingly hard-coded price-getter for curator's picks
-    msft_ticker = yf.Ticker("msft")
-    datas = msft_ticker.history()
-    last_quote1 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before1 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    tsla_ticker = yf.Ticker("tsla")
-    datas = tsla_ticker.history()
-    last_quote2 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before2 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    aapl_ticker = yf.Ticker("aapl")
-    datas = aapl_ticker.history()
-    last_quote3 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before3 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    ge_ticker = yf.Ticker("ge")
-    datas = ge_ticker.history()
-    last_quote4 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before4 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    amzn_ticker = yf.Ticker("amzn")
-    datas = amzn_ticker.history()
-    last_quote5 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before5 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    nvda_ticker = yf.Ticker("nvda")
-    datas = nvda_ticker.history()
-    last_quote6 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before6 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    fb_ticker = yf.Ticker("fb")
-    datas = fb_ticker.history()
-    last_quote7 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before7 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    amd_ticker = yf.Ticker("amd")
-    datas = amd_ticker.history()
-    last_quote8 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before8 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    nflx_ticker = yf.Ticker("nflx")
-    datas = nflx_ticker.history()
-    last_quote9 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before9 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-    twtr_ticker = yf.Ticker("twtr")
-    datas = twtr_ticker.history()
-    last_quote10 = round((datas.tail(1)['Close'].iloc[0]), 2)
-    before10 = round((datas.tail(2)['Close'].iloc[0]), 2)
-
-
     # add user variable to homepage
-    return render_template("index.html", user = user, price1 = last_quote1, price2 = last_quote2, price3 = last_quote3, price4 = last_quote4, price5 = last_quote5, price6 = last_quote6, price7 = last_quote7, price8 = last_quote8, price9 = last_quote9, price10 = last_quote10,
-    price1b = before1, price2b = before2, price3b = before3, price4b = before4, price5b = before5, price6b = before6, price7b = before7, price8b = before8, price9b = before9, price10b = before10)
+    return render_template("index.html", user = user)
+
+@app.route("/curated_tickers", methods=['GET'])
+def get_curated_tickers():
+    # can make these dynamic later, load from file, or random generated
+    tickers = ["MSFT", "TSLA", "AAPL", "GE", "AMZN", "NVDA", "FB", "AMD", "NFLX", "TWTR"]
+
+    return jsonify(tickers)    
 
 class UserTickerData:
     def __init__(self, symbol, buy_price, amount, date):
