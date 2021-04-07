@@ -13,7 +13,7 @@ from flask import (
 
 import json
 import hashlib
-
+import os
 from google.cloud import datastore
 
 blueprint = Blueprint('auth', __name__)
