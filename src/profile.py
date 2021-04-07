@@ -93,7 +93,7 @@ def remove_ticker():
             print("Removed ticker {} from position {} from user {}".format(ticker, i, user))
             # update db
             ds_client.put(user_portfolio)
-            return jsonify(success=True)
+            return redirect("/profile")
 
 
     return jsonify(success=False)
