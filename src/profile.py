@@ -35,8 +35,8 @@ def add_to_portfolio():
     portfolio_key = ds_client.key("Portfolio", user)
 
     ticker = request.form.get("ticker")
-    price = int(request.form.get("price"))
-    amount = int(request.form.get("amount"))
+    price = float(request.form.get("price"))
+    amount = float(request.form.get("amount"))
     date = request.form.get("date")
 
     #user_entry = {'ticker':ticker, 'price':price, 'amount':amount, 'date':date}
@@ -58,13 +58,13 @@ def add_to_portfolio():
         # check if user is holding that stock already
         filtered = list(filter(lambda entry: entry['ticker'] == ticker, current_data))
         if len(filtered) == 1: # this can only be either 1 or 0, because there will never be duplicate stonks
-            new_amount = int(filtered[0]['amount']) + amount
-            new_price = (int(filtered[0]['amount'])*int(filtered[0]['price']) + price*amount)/new_amount # cost average
+            new_amount = float(filtered[0]['amount']) + amount
+            new_price = (float(filtered[0]['amount'])*float(filtered[0]['price']) + price*amount)/new_amount # cost average
             # bad, but find ticker again to replace necessary fields
             for entry in current_data:
                 if entry["ticker"] == ticker:
                     entry['amount'] = str(new_amount)
-                    entry['price'] = str(new_price).split('.')[0]
+                    entry['price'] = str(new_price)#.split('.')[0]
         else: # else this is a new stock and we can just add it
             user_entry = {'ticker':ticker, 'price':str(price), 'amount':str(amount), 'date':date}
             current_data.append(user_entry)
