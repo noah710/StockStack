@@ -64,7 +64,7 @@ def add_to_portfolio():
             for entry in current_data:
                 if entry["ticker"] == ticker:
                     entry['amount'] = str(new_amount)
-                    entry['price'] = str(new_price)#.split('.')[0]
+                    entry['price'] = str(round(new_price,2))
         else: # else this is a new stock and we can just add it
             user_entry = {'ticker':ticker, 'price':str(price), 'amount':str(amount), 'date':date}
             current_data.append(user_entry)
