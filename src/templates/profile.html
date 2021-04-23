@@ -7,10 +7,90 @@
 <script src="/static/scripts/portfolio.js"></script>
 
 <style>
- .center {
-  margin-left: auto;
-  margin-right: auto;
+  * {box-sizing: border-box;}
+  
+  .center {
+    margin-left: auto;
+    margin-right: auto;
+      }
+
+  .openButton {
+        border: none;
+        border-radius: 20px;
+        background-color: #1c87c9;
+        color: white;
+        padding: 10px 10px;
+        cursor: pointer;
+     }
+
+  .formPopup {
+        display: block;
+        position: fixed;
+        left: 45%;
+        top: 5%;
+        transform: translate(-50%, 5%);
+        border: 3px solid #258be3;
+        z-index: 9;
+        background-color: #258be3;
+      }
+
+  .formContainer {
+        max-width: 300px;
+        padding: 20px;
+      }
+  
+  .formContainer input[type=text], .formContainer input[type=password] {
+        width: 100%;
+        padding: 15px;
+        margin: 5px 0 20px 0;
+        border: none;
+      }
+
+  .formContainer input[type=text]:focus, .formContainer input[type=password]:focus {
+        outline: none;
+      }
+  
+  .formContainer .btn {
+        padding: 12px 20px;
+        border: none;
+        background-color: #d26de8;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 15px;
+        opacity: 0.8;
+      }
+  
+  .formContainer .cancel {
+        background-color: #ed5e32;
+      }
+  
+  .formContainer .btn:hover, .openButton:hover {
+        opacity: 1;
+      }
+
+  .modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
 </style>
 
 <table id=portolio_table class=center>
@@ -24,20 +104,46 @@
   </tbody>
 </table>
 
-<p>Add assets with this form</p>
-<form action="/profile/add_ticker" method="POST">
-  <p>
-  <label for="ticker">Ticker:</label>
-  <input type="text" id="ticker" name="ticker"><br><br>
-  <label for="price">Price:</label>
-  <input type="text" id="price" name="price"><br><br>
-  <label for="amount">Amount:</label>
-  <input type="text" id="amount" name="amount"><br><br>
-  <label for="date">Date:</label>
-  <input type="text" id="date" name="date"><br><br>
-  <button class="search-button" type="submit">Add Asset</button>
-  </p>
-</form>
+<script>
+  function openForm() {
+    document.getElementById("add_asset_modal").style.display = "block";
+  }
+  function closeForm() {
+    document.getElementById("add_asset_modal").style.display = "none";
+  }
+</script>
+
+<button class="openButton" onclick="openForm()"><strong>Add Asset</strong></button>
+
+<div class="modal" id="add_asset_modal">
+  <div class="modal-content">
+
+    <div class="formPopup" id="asset-form">
+      <form action="/profile/add_ticker" method="POST" class="formContainer">
+        <h2 style="color:#fefefe">Add Transaction</h2>
+        <label for="ticker">
+          <strong style="color:#fefefe">Ticker</strong>
+        </label>
+        <input type="text" placeholder="ex. AAPL" name="ticker" required>
+        <label for="price">
+          <strong style="color:#fefefe">Purchase price</strong>
+        </label>
+        <input type="text" placeholder="ex. 402.96" name="price" required>
+        <label for="amount">
+          <strong style="color:#fefefe">Quantity</strong>
+        </label>
+        <input type="text" placeholder="quantity purchased" name="amount" required>
+        <label for="date">
+          <strong style="color:#fefefe">Date Purchased</strong>
+        </label>
+        <input type="text" placeholder="ex. 04/02/21" name="date" required>
+        <button type="submit" class="btn">Add Transaction</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+      </form>
+    </div>
+
+  </div>
+</div>
 
 <p>Remove Ticker from portfolio</p>
 <form action="/profile/remove_ticker" method="POST">
