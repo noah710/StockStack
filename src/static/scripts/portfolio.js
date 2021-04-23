@@ -38,7 +38,7 @@ $(document).ready(function() {
         cell_buy_price.innerHTML = portfolio_data[i].price
         cell_amount.innerHTML = portfolio_data[i].amount
         cell_date.innerHTML = portfolio_data[i].date
-        cell_remove.innerHTML = link_base + portfolio_data[i].ticker + link_mid + 'REMOVE' + link_end
+        cell_remove.innerHTML = link_base + portfolio_data[i].ticker + link_mid + '<p style="text-align:center; font-size:25px">&#10006;</p>' + link_end
     }
         
 
