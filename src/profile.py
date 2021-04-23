@@ -87,13 +87,10 @@ def get_tickers_for_user():
     print(user_portfolio["data"])
     return jsonify(json.loads(user_portfolio["data"]))
 
-@blueprint.route("/remove_ticker", methods=["POST"])
-def remove_ticker():
+@blueprint.route("/remove_ticker/<ticker>", methods=["GET"])
+def remove_ticker_button(ticker):
     user = session.get("user", None)
     portfolio_key = ds_client.key("Portfolio", user)
-
-    # get ticker to remove
-    ticker = request.form.get("ticker")
 
     # load in users portfolio
     user_portfolio = ds_client.get(portfolio_key)

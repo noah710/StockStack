@@ -3,7 +3,7 @@
   <h1>{{user}}'s Page</h1>
 </body>
 <h2>{{user}}'s Assets</h2>
-<p>This is where the user's asset's will show up</p>
+<p>Assets can be added here. Adding the same asset will display the cost average of the transactions</p>
 <script src="/static/scripts/portfolio.js"></script>
 
 <style>
@@ -91,15 +91,28 @@
   width: 80%; /* Could be more or less, depending on screen size */
 }
 
+table {
+  border-collapse: collapse;
+  width: 40%;
+}
+
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+
+
+tr:nth-child(odd) {background-color: #b6cbe0;}
 </style>
 
 <table id=portolio_table class=center>
   <tbody>
     <tr>
-      <td>Ticker</td>
-      <td>Buy Price</td>
-      <td>Amount</td>
-      <td>Date</td>
+      <th>Ticker</th>
+      <th>Cost Average/Share</th>
+      <th>Amount</th>
+      <th>Purchase Date</th>
+      <th>Remove</th>
     </tr>
   </tbody>
 </table>
@@ -144,14 +157,5 @@
 
   </div>
 </div>
-
-<p>Remove Ticker from portfolio</p>
-<form action="/profile/remove_ticker" method="POST">
-  <p>
-  <label for="ticker">Ticker:</label>
-  <input type="text" id="ticker" name="ticker">
-  <button class="search-button" type="submit">Remove</button>
-  </p>
-</form>
 {% endblock %}
 
