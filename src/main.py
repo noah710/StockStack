@@ -25,7 +25,10 @@ from api import blueprint as api_blueprint
 ds_client = datastore.Client()
 
 app = Flask(__name__)
-app.secret_key = os.urandom(12)
+
+# this causing problems on app engine
+# need to make this static, https://stackoverflow.com/questions/51014992/google-app-engine-session-loses-attribute
+app.secret_key = b'Vwqw\x9d)G\xb2\x00/\xb4b'
 
 # handle all profile requests in profile.py
 app.register_blueprint(profile_blueprint, url_prefix="/profile")
