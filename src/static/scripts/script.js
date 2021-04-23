@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  
+
   console.log("starting xhr")
   var xmlHttp = new XMLHttpRequest();
     // document is loaded
@@ -53,22 +53,6 @@ $(document).ready(function() {
    // """""should""""" open our xml response
 
 });
-    /*
-console.log("ready")
-  // pull from Flask route
-  $.ajax({
-    url:'/sendYF',
-    dataType: 'json',
-      success: function(data) {
-        // test print
-        console.log(data);
-        for (let i = 0; i < data.length; i++) {
-
-        }
-      }
-  });
-  */
-//});
 
 function xhr_cb(data){
 
