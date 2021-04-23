@@ -26,7 +26,7 @@
   .formPopup {
         display: block;
         position: fixed;
-        left: 45%;
+        left: 50%;
         top: 5%;
         transform: translate(-50%, 5%);
         border: 3px solid #258be3;
@@ -124,15 +124,15 @@
         <label for="ticker">
           <strong style="color:#fefefe">Ticker</strong>
         </label>
-        <input type="text" placeholder="ex. AAPL" name="ticker" required>
+        <input type="text" placeholder="ex. AAPL" name="ticker" required >
         <label for="price">
-          <strong style="color:#fefefe">Purchase price</strong>
+          <strong style="color:#fefefe;">Purchase price</strong>
         </label>
-        <input type="text" placeholder="ex. 402.96" name="price" required>
+        <input type="text" pattern='[0-9]+([\.,][0-9]+)?' placeholder="ex. 402.96" name="price" required>
         <label for="amount">
           <strong style="color:#fefefe">Quantity</strong>
         </label>
-        <input type="text" placeholder="quantity purchased" name="amount" required>
+        <input type="text" pattern='[0-9]+([\.,][0-9]+)?' placeholder="quantity purchased" name="amount" required>
         <label for="date">
           <strong style="color:#fefefe">Date Purchased</strong>
         </label>
