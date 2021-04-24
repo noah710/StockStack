@@ -30,18 +30,93 @@ $(document).ready(function() {
         // add cells to row
         var cell_ticker = row.insertCell(0)
         var cell_buy_price = row.insertCell(1)
-        var cell_amount = row.insertCell(2)
-        var cell_date = row.insertCell(3)
-        var cell_remove = row.insertCell(4)
+        var cell_current_price = row.insertCell(2)
+        var cell_amount = row.insertCell(3)
+        var cell_costbasis = row.insertCell(4)
+        var cell_total = row.insertCell(5)
+        var cell_gainloss = row.insertCell(6)
+        var cell_date = row.insertCell(7)
+        var cell_remove = row.insertCell(8)
         // set cells to data
         cell_ticker.innerHTML = portfolio_data[i].ticker
         cell_buy_price.innerHTML = portfolio_data[i].price
         cell_amount.innerHTML = portfolio_data[i].amount
         cell_date.innerHTML = portfolio_data[i].date
+        cell_costbasis.innerHTML = Math.round((cell_amount.innerHTML * cell_buy_price.innerHTML)*100) / 100 // this basically just rounds it to 2 decimal places
+        cell_current_price.innerHTML = '--'
+        cell_total.innerHTML = '--' // load this in async
+        cell_gainloss.innerHTML = '--' // ^^
         cell_remove.innerHTML = link_base + portfolio_data[i].ticker + link_mid + '<p style="text-align:center; font-size:25px">&#10006;</p>' + link_end
-    }
+      }
+    get_current_values();
         
 
+  }
+
+  // need to async get prices and determine total and gain/loss relative to cost basis
+  function get_current_values(){
+    // get table
+    var table = document.getElementById("portolio_table");
+
+    // start at row 2 (row 1 is "Ticker")
+    // get ticker name
+    // request price data
+    // fill in price data on callback, pass callback cell to insert to
+    var xhr_reqs = [];
+    for (var i = 1; i < table.rows.length; i++){
+        (function(i){
+            var ticker_name = table.rows[i].cells[0].innerHTML
+
+            // get price
+            xhr_reqs[i] = new XMLHttpRequest();
+            xhr_reqs[i].onreadystatechange = function() { 
+                // whenever the request state changes, check if the data is ready
+                if (xhr_reqs[i].readyState == 4 && xhr_reqs[i].status == 200)
+                    // handle data from request
+                    insert_price(xhr_reqs[i].responseText, i);
+            }
+            // request the portfolio then wait for the response with portfolio_cb
+            xhr_reqs[i].open("GET", "/api/ticker_price/" + ticker_name, true); // true for asynchronous 
+            xhr_reqs[i].send(null);
+        })(i);
+    }
+  }
+
+  function insert_price(response_data, table_row){
+    var table = document.getElementById("portolio_table");
+    var price = JSON.parse(response_data)
+
+    /* cell definitions
+    var cell_buy_price = row.insertCell(1)
+    var cell_current_price = row.insertCell(2)
+    var cell_amount = row.insertCell(3)
+    var cell_costbasis = row.insertCell(4)
+    var cell_total = row.insertCell(5)
+    var cell_gainloss = row.insertCell(6)
+    var cell_date = row.insertCell(7)
+    var cell_remove = row.insertCell(8)
+    */
+    // get cells we need to manipulate
+    var cost_cell = table.rows[table_row].cells[1]
+    var cell_current_price = table.rows[table_row].cells[2]
+    var amount_cell = table.rows[table_row].cells[3]
+    var total_cell = table.rows[table_row].cells[5] 
+    var gainloss_cell = table.rows[table_row].cells[6]
+
+    // set data
+    total_cell.innerHTML = price * amount_cell.innerHTML
+    cell_current_price.innerHTML = price
+
+    var cost_basis = cost_cell.innerHTML * amount_cell.innerHTML
+    var gainloss = total_cell.innerHTML - cost_basis 
+
+    gainloss_cell.innerHTML = Math.round(gainloss * 100) / 100 // this basically just rounds it to 2 decimal places 
+    if (gainloss >= 0){
+      gainloss_cell.style.color = 'lightgreen' 
+    }else{
+      gainloss_cell.style.color = 'red'
+    }
+    
   }
   
   
