@@ -8,8 +8,12 @@ from flask import (
     redirect,
     session,
     make_response,
-    Blueprint
+    Blueprint,
+    escape
 )
+
+# regex for sanitizing
+import re
 
 import json
 
@@ -34,12 +38,10 @@ def add_to_portfolio():
     user = session.get("user", None)
     portfolio_key = ds_client.key("Portfolio", user)
 
-    ticker = request.form.get("ticker")
-    price = float(request.form.get("price"))
-    amount = float(request.form.get("amount"))
-    date = request.form.get("date")
-
-    #user_entry = {'ticker':ticker, 'price':price, 'amount':amount, 'date':date}
+    ticker = escape(request.form.get("ticker"))
+    price = escape(float(request.form.get("price")))
+    amount = escape(float(request.form.get("amount")))
+    date = escape(request.form.get("date"))
 
 
     # check if the user has a portfolio    

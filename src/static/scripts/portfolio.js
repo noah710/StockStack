@@ -1,3 +1,7 @@
+// used to sum all gains and losses of assets
+var total_gainloss = 0.0
+var total_value = 0.0
+
 $(document).ready(function() {
 
     // create the xhr request
@@ -104,12 +108,18 @@ $(document).ready(function() {
     var gainloss_cell = table.rows[table_row].cells[6]
 
     // set data
-    total_cell.innerHTML = price * amount_cell.innerHTML
+    total_cell.innerHTML = Math.round((price * amount_cell.innerHTML)*100) / 100 // this basically just rounds it to 2 decimal places
     cell_current_price.innerHTML = price
-
+    
     var cost_basis = cost_cell.innerHTML * amount_cell.innerHTML
     var gainloss = total_cell.innerHTML - cost_basis 
-
+    
+    // keeping track of this for last cell
+    console.log(total_value)
+    total_gainloss = total_gainloss + gainloss
+    total_value = total_value + (Math.round((price * amount_cell.innerHTML)*100) / 100)
+    console.log(total_value)
+    
     gainloss_cell.innerHTML = Math.round(gainloss * 100) / 100 // this basically just rounds it to 2 decimal places 
     if (gainloss >= 0){
       gainloss_cell.style.color = 'lightgreen' 
@@ -117,6 +127,35 @@ $(document).ready(function() {
       gainloss_cell.style.color = 'red'
     }
     
+    // if its the last ticker, insert the total amounts 
+    if (table_row == (table.rows.length - 1)){
+      insert_totals()
+    }
+  }
+
+  function insert_totals(){
+    var table = document.getElementById("portolio_table");
+
+    var total_row = table.insertRow()
+    total_row.insertCell(0)
+    total_row.insertCell(1)
+    total_row.insertCell(2)
+    total_row.insertCell(3)
+    total_row.insertCell(4).innerHTML = '<b>Totals</b>'
+    var cell_total_val = total_row.insertCell(5)
+    var cell_total_gainloss = total_row.insertCell(6)
+    total_row.insertCell(7)
+    total_row.insertCell(8)
+    
+    // round values
+    cell_total_val.innerHTML = Math.round(total_value * 100) / 100
+    cell_total_gainloss.innerHTML = Math.round(total_gainloss * 100) / 100
+
+    if (total_gainloss >= 0){
+      cell_total_gainloss.style.color = 'lightgreen' 
+    }else{
+      cell_total_gainloss.style.color = 'red'
+    }
   }
   
   
