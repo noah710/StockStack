@@ -97,8 +97,19 @@
 
 {% if query %}
   {% for r in query %}
-  <li>{{ r }}</li>
   {% endfor %}
+  <ul>
+    <li>{{ query[0] }}</li>
+    <li>{{ query[1] }}</li>
+    <li>{{ query[2] }}</li>
+  </ul>
+  <style>
+    ul {
+      list-style-type: none;
+      color:blue;
+      font-weight: bold;
+    }
+  </style>
 {% else %}
   <p> Please enter a ticker to search for.. </p>
 {% endif %}
@@ -110,6 +121,21 @@
       margin: 0 auto;
     }
     </style>
-    Current Price: $<span id="myText"></span>
+    <br>
+    <p class="priceSymbol">Current Price: $<span id="myText"></span></p>
+    <style>
+      .priceSymbol {
+        color:green;
+      }
+    </style>
+    <br>
+    <p class="desc">{{ query[3] }} </p>
+    <style>
+      .desc {
+        padding-left: 50px;
+        padding-right: 50px;
+        color:black;
+      }
+    </style>
   </p>
 {% endblock %}
