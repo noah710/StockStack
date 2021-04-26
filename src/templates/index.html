@@ -14,38 +14,15 @@
   table, th, td {
   border: 2px solid black;
    }
-
+   
+  table {
+  width: 75%;
+}
 
 	.blueback {
 	background-color: #258be3;
 	color: white;
 	}
-	
-	  table {
-  width: 75%;
-}
-.column {
-  float: left;
-  width: 25%;
-}
-
-.row:after {
-  content: "";
-  display: table;
-   clear: both;
-}
-
-@media screen and (max-width: 900px) {
-  .column {
-    width: 50%;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-  }
-}
 </style>
 
 <!-- our script -->
@@ -53,12 +30,9 @@
 
   <p>Welcome to our stock portfolio website. From here, you can search ticker symbols and add them to your account page.</p>
   <br></br>
-
-
-<div class="row">
-  <div class="column">
-	<div class="curators-picks">
+  <div class="curators-picks">
   <h2>Curator's Picks</h2>
+	  <p>These are some recommended stocks hand-picked by the team at Stock Stack. You can click on the ticker to show more information.</p>
 
 
 	<script src="/static/scripts/curated.js"></script>
@@ -73,10 +47,11 @@
 	  
 	  
   </div>
-  </div>
-  <div class="column">
-	<div class="active">
+  
+  
+  <div class="active">
   <h2>Active Stocks</h2>
+	<p>These are the most active (top traded) stocks for the day.</p>
 	<table id=active_stocks class=center>
 		<tbody>
 			<tr>
@@ -86,10 +61,11 @@
 		</tbody>
 	</table>
 	</div>
-  </div>
-  <div class="column">
-	<div class="gainers">
+	
+	
+  <div class="gainers">
   <h2>Top Gainers</h2>
+	<p>These are the top gainers for the day (went up the most).</p>
 	<table id=gainer_stocks class=center>
 		<tbody>
 			<tr>
@@ -99,10 +75,10 @@
 		</tbody>
 	</table>
 	</div>
-  </div>
-  <div class="column">
-	<div class="losers">
+	
+  <div class="losers">
   <h2>Top Losers</h2>
+	<p>These are the top losers for the day (went down the most).</p>
 	<table id=loser_stocks class=center>
 		<tbody>
 			<tr>
@@ -112,8 +88,7 @@
 		</tbody>
 	</table>
 	</div>
-  </div>
-</div>
+
   
 {% endblock %}
 
