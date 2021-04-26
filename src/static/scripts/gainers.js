@@ -6,7 +6,7 @@ $(document).ready(function() {
         // whenever the request state changes, check if the data is ready
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             // handle data from request
-            curated_cb(xmlHttp.responseText);
+            gainers_cb(xmlHttp.responseText);
       }
     // request the portfolio then wait for the response with portfolio_cb
     xmlHttp.open("GET", "/top_tickers", true); // true for asynchronous 
@@ -14,8 +14,8 @@ $(document).ready(function() {
 
 });
 
-function curated_cb(data){
-    curated_tickers = JSON.parse(data); // parse to array
+function gainers_cb(data){
+    gainers_tickers = JSON.parse(data); // parse to array
 
     // get table
     var table = document.getElementById("gainer_stocks");
@@ -23,7 +23,7 @@ function curated_cb(data){
     var name_mid = '">'// append ticker, then append this
     var name_end = '</a>' // append ticker, then append this
     // for each element, add an entry to the table
-    for(let i = 0; i < curated_tickers.length; i++){
+    for(let i = 0; i < gainers_tickers.length; i++){
         // add new row to table
         var row = table.insertRow()
         // add cells to row
@@ -33,7 +33,7 @@ function curated_cb(data){
         // set ticker to results hyperlink
         // will look like  <a href="/results/TICKER">TICKER</a>
         // to extract ticker name, innerHTML.split(">")[1].split("<")[0]
-        cell_ticker.innerHTML = name_base + curated_tickers[i] + name_mid + curated_tickers[i] + name_end
+        cell_ticker.innerHTML = name_base + gainers_tickers[i] + name_mid + gainers_tickers[i] + name_end
         cell_price.innerHTML = "--"
     }
     fill_in_prices()
