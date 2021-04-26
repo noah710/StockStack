@@ -93,3 +93,40 @@ form {
 	text-decoration: underline;
 	color: blue;
 }
+
+/*
+.container {
+  background: aqua;
+}
+
+.one {
+  width: 15%;
+  height: 200px;
+  background: red;
+  float: left;
+}
+
+.two {
+  margin-left: 15%;
+  height: 200px;
+  background: black;
+}
+*/
+
+.flex-container {
+  display: flex;
+  overflow: auto;
+}
+
+.flex-child {
+  float: left;
+  flex: 1;
+  width: 200px;
+  margin: 10px;
+}
+
+.flex-child:first-child {
+  float: left;
+  width: 200px;
+  margin-right: 20px;
+}
