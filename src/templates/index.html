@@ -31,8 +31,29 @@
 			</tr>
 		</tbody>
 	</table>
+	  
+	  
+  </div>
+  
+  <div class="active">
+  <h2>Active Stocks</h2>
+	<p>These are the most active (top traded) stocks for the day.</p>
+  <script src="/static/scripts/active.js"></script>
+	<table id=active_stocks class=center>
+		<tbody>
+			<tr>
+				<td>Ticker |</td>
+				<td> Price</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 	
-	<script src="/static/scripts/gainers.js"></script>
+	
+  <div class="gainers">
+  <h2>Top Gainers</h2>
+	<p>These are the top gainers for the day (went up the most).</p>
+  <script src="/static/scripts/gainers.js"></script>
 	<table id=gainer_stocks class=center>
 		<tbody>
 			<tr>
@@ -41,9 +62,21 @@
 			</tr>
 		</tbody>
 	</table>
-	  
-	  
-  </div>
+	</div>
+	
+  <div class="losers">
+  <h2>Top Losers</h2>
+	<p>These are the top losers for the day (went down the most).</p>
+  <script src="/static/scripts/losers.js"></script>
+	<table id=loser_stocks class=center>
+		<tbody>
+			<tr>
+				<td>Ticker |</td>
+				<td> Price</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 
   
 {% endblock %}

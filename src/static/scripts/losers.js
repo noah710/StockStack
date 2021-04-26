@@ -6,24 +6,24 @@ $(document).ready(function() {
         // whenever the request state changes, check if the data is ready
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             // handle data from request
-            gainers_cb(xmlHttp.responseText);
+            losers_cb(xmlHttp.responseText);
       }
     // request the portfolio then wait for the response with portfolio_cb
-    xmlHttp.open("GET", "/top_tickers", false); // true for asynchronous 
+    xmlHttp.open("GET", "/bottom_tickers", true); // true for asynchronous 
     xmlHttp.send(null);
 
 });
 
-function gainers_cb(data){
-    gainers_tickers = JSON.parse(data); // parse to array
+function losers_cb(data){
+    losers_tickers = JSON.parse(data); // parse to array
 
     // get table
-    var table = document.getElementById("gainer_stocks");
+    var table = document.getElementById("loser_stocks");
     var name_base = '<a href="/results/' // start with this
     var name_mid = '">'// append ticker, then append this
     var name_end = '</a>' // append ticker, then append this
     // for each element, add an entry to the table
-    for(let i = 0; i < gainers_tickers.length; i++){
+    for(let i = 0; i < losers_tickers.length; i++){
         // add new row to table
         var row = table.insertRow()
         // add cells to row
@@ -33,7 +33,7 @@ function gainers_cb(data){
         // set ticker to results hyperlink
         // will look like  <a href="/results/TICKER">TICKER</a>
         // to extract ticker name, innerHTML.split(">")[1].split("<")[0]
-        cell_ticker.innerHTML = name_base + gainers_tickers[i] + name_mid + gainers_tickers[i] + name_end
+        cell_ticker.innerHTML = name_base + losers_tickers[i] + name_mid + losers_tickers[i] + name_end
         cell_price.innerHTML = "--"
     }
     fill_in_prices()
@@ -43,7 +43,7 @@ function gainers_cb(data){
 
 function fill_in_prices(){
     // get table
-    var table = document.getElementById("gainer_stocks");
+    var table = document.getElementById("loser_stocks");
 
     // start at row 2 (row 1 is "Ticker")
     // get ticker name
