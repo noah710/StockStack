@@ -33,19 +33,18 @@ $(document).ready(function() {
             active_cb(active_xmlHttp.responseText);
       }
 	  
-    // request losers
-    losers_xmlHttp.open("GET", "/bottom_tickers", true); // true for asynchronous 
-    losers_xmlHttp.send(null);
     // request curated
     curated_xmlHttp.open("GET", "/curated_tickers", true); // true for asynchronous 
     curated_xmlHttp.send(null);
-    // request gainers
-    gainers_xmlHttp.open("GET", "/top_tickers", false); // true for asynchronous 
-    gainers_xmlHttp.send(null);
-	// request active
-    active_xmlHttp.open("GET", "/active_tickers", false); // true for asynchronous 
+    // request active
+    active_xmlHttp.open("GET", "/active_tickers", true); // true for asynchronous 
     active_xmlHttp.send(null);
-	
+    // request gainers
+    gainers_xmlHttp.open("GET", "/top_tickers", true); // true for asynchronous 
+    gainers_xmlHttp.send(null);
+    // request losers
+    losers_xmlHttp.open("GET", "/bottom_tickers", true); // true for asynchronous 
+    losers_xmlHttp.send(null);
 
 });
 
@@ -170,7 +169,7 @@ function fill_in_prices(table_id){
             var ticker_price_cell = table.rows[i].cells[1] // going to tell callback put price here
 
             // get price
-            console.log("new req " + i)
+            console.log("new req " + i + " " + table_id)
             xhr_reqs[i] = new XMLHttpRequest();
             xhr_reqs[i].onreadystatechange = function() { 
                 // whenever the request state changes, check if the data is ready
