@@ -9,7 +9,7 @@ $(document).ready(function() {
             gainers_cb(xmlHttp.responseText);
       }
     // request the portfolio then wait for the response with portfolio_cb
-    xmlHttp.open("GET", "/top_tickers", false); // true for asynchronous 
+    xmlHttp.open("GET", "/top_tickers", true); // true for asynchronous 
     xmlHttp.send(null);
 
 });
