@@ -24,6 +24,15 @@ $(document).ready(function() {
             // handle data from request
             losers_cb(losers_xmlHttp.responseText);
       }
+	// create the active xhr request
+    var active_xmlHttp = new XMLHttpRequest();
+    active_xmlHttp.onreadystatechange = function() { 
+        // whenever the request state changes, check if the data is ready
+        if (active_xmlHttp.readyState == 4 && active_xmlHttp.status == 200)
+            // handle data from request
+            active_cb(active_xmlHttp.responseText);
+      }
+	  
     // request losers
     losers_xmlHttp.open("GET", "/bottom_tickers", true); // true for asynchronous 
     losers_xmlHttp.send(null);
@@ -33,6 +42,10 @@ $(document).ready(function() {
     // request gainers
     gainers_xmlHttp.open("GET", "/top_tickers", false); // true for asynchronous 
     gainers_xmlHttp.send(null);
+	// request active
+    active_xmlHttp.open("GET", "/active_tickers", false); // true for asynchronous 
+    active_xmlHttp.send(null);
+	
 
 });
 
@@ -112,6 +125,32 @@ function losers_cb(data){
         cell_price.innerHTML = "--"
     }
     fill_in_prices("loser_stocks")
+
+  }
+  
+function active_cb(data){
+    active_tickers = JSON.parse(data); // parse to array
+
+    // get table
+    var table = document.getElementById("active_stocks");
+    var name_base = '<a href="/results/' // start with this
+    var name_mid = '">'// append ticker, then append this
+    var name_end = '</a>' // append ticker, then append this
+    // for each element, add an entry to the table
+    for(let i = 0; i < active_tickers.length; i++){
+        // add new row to table
+        var row = table.insertRow()
+        // add cells to row
+        var cell_ticker = row.insertCell(0)
+        var cell_price = row.insertCell(1)
+        
+        // set ticker to results hyperlink
+        // will look like  <a href="/results/TICKER">TICKER</a>
+        // to extract ticker name, innerHTML.split(">")[1].split("<")[0]
+        cell_ticker.innerHTML = name_base + active_tickers[i] + name_mid + active_tickers[i] + name_end
+        cell_price.innerHTML = "--"
+    }
+    fill_in_prices("active_stocks")
 
   }
 
