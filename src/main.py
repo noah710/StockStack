@@ -80,7 +80,6 @@ def get_bottom_tickers():
     return jsonify(bottom_array)   
 
 #puts only the tickers of the most active stocks in an array and jsonifys it.
-#*****THIS DOESN'T WORK AT THE MOMENT, DONT KNOW WHY******
 @app.route("/active_tickers", methods=['GET'])      
 def get_active_tickers():
     active_tickers = si.get_day_most_active()
