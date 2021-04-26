@@ -46,7 +46,8 @@ def home():
     get_top_tickers()
 
     # add user variable to homepage
-    return render_template("index.html", user = user)
+    data = get_default_dates_and_prices('SPY')
+    return render_template("index.html", user = user, data = data)
 
 @app.route("/curated_tickers", methods=['GET'])
 def get_curated_tickers():
