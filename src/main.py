@@ -50,14 +50,10 @@ def home():
 
 @app.route("/curated_tickers", methods=['GET'])
 def get_curated_tickers():
-    active_tickers = si.get_day_most_active()
-    
-    active_array = []
-    
-    for x in range(10):
-        active_array.append((str(active_tickers['Symbol'][x])))
-        
-    return jsonify(active_array) 
+    # can make these dynamic later, load from file, or random generated
+    tickers = ["MSFT", "TSLA", "AAPL", "GE", "AMZN", "NVDA", "FB", "AMD", "NFLX", "TWTR"]
+
+    return jsonify(tickers) 
 
 #puts only the tickers of the top gainers in an array and jsonifys it. 
 @app.route("/top_tickers", methods=['GET'])      
@@ -84,6 +80,7 @@ def get_bottom_tickers():
     return jsonify(bottom_array)   
 
 #puts only the tickers of the most active stocks in an array and jsonifys it.
+#*****THIS DOESN'T WORK AT THE MOMENT, DONT KNOW WHY******
 @app.route("/active_tickers", methods=['GET'])      
 def get_active_tickers():
     active_tickers = si.get_day_most_active()
