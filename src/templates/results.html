@@ -2,84 +2,12 @@
 {% block body %}
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
+<script src="/static/scripts/charts.js"></script>
 
-  google.charts.load('current', {'packages':['corechart', 'line']});
-  google.charts.setOnLoadCallback(drawChart);
-
-  function drawChart() {
-
-    var dataJSON = '{{ data|tojson }}';
-    console.log(dataJSON);
-
-    const datesFormatted = new Array();
-    const pricesFormatted = new Array();
-    for (var k = 0; k < dates.length; k++) {
-      var curDate = dates[k];
-      var splitDate = curDate.split('-');
-      if (k === 0) {
-        var year = splitDate[0].substring(1, 6);
-        var newDate = new Date(splitDate[0].substring(1, 6), splitDate[1] - 1, splitDate[2].substring(0, 2));
-        datesFormatted.push(newDate);
-      } else {
-        var year = splitDate[0].substring(2, 6);
-        var newDate = new Date(splitDate[0].substring(2, 6), splitDate[1] - 1, splitDate[2].substring(0, 2));
-        datesFormatted.push(newDate);
-      }
-      var priceCur = prices[k];
-      var subPrice = priceCur.substring(2, priceCur.length - 1);
-      var priceC = (Number(subPrice));
-      pricesFormatted.push(priceC);
-    }
-
-    var data = new google.visualization.DataTable();
-    data.addColumn('date', 'Date');
-    data.addColumn('number', 'Price');
-
-    for (var m = 0; m < datesFormatted.length; m++) {
-      data.addRow([datesFormatted[m], pricesFormatted[m]]);
-    }
-
-    var dataCount = datesFormatted.length;
-
-    var options = {
-      title: 'Asset Performance (Past Month)',
-      pointsVisible: true,
-      pointSize: 3,
-      legend: {position: 'none'},
-      hAxis: {
-        format: 'MM/d',
-        gridlines: {count: 5},
-        pointSize: 2,
-        //title: 'Date',
-        titlePosition: 'none'
-      },
-      vAxis: {
-        title: 'Price'
-      }
-    };
-
-    var curPrice = pricesFormatted[pricesFormatted.length - 1];
-    console.log('CUR PRICE: ' + curPrice);
-    document.getElementById("myText").innerHTML = curPrice;
-
-    var chart = new google.visualization.LineChart(document.getElementById("curve_chart"));
-
-    console.log("Results data: ");
-    console.log(data);
-    chart.draw(data, options);
-  }
-  console.log("Script");
-</script>
-
-
-{% if query %}
-  {% for r in query %}
-  {% endfor %}
   <ul>
-    <li>{{ query[0] }}</li>
-    <li>{{ query[1] }}</li>
-    <li>{{ query[2] }}</li>
+    <li id="symbol"></li>
+    <li id="company_name"></li>
+    <li id="country"></li>
   </ul>
   <style>
     ul {
@@ -88,11 +16,9 @@
       font-weight: bold;
     }
   </style>
-{% else %}
-  <p> Please enter a ticker to search for.. </p>
-{% endif %}
+
   <p>
-    <div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
+    <div id="result_chart" class ="chart" style="width: 900px; height: 500px"></div>
     <style>
     .chart {
       width: auto;
@@ -107,7 +33,7 @@
       }
     </style>
     <br>
-    <p class="desc">{{ query[3] }} </p>
+    <p class="desc" id="description"></p>
     <style>
       .desc {
         padding-left: 50px;
