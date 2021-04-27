@@ -10,31 +10,7 @@
   function drawChart() {
 
     var dataJSON = '{{ data|tojson }}';
-    var dataSplit = dataJSON.split(',');
-
-    const dates = new Array();
-    const prices = new Array();
-    for (var i = 0; i < dataSplit.length; i++) {
-      var curData = dataSplit[i];
-      var curDataSplit = curData.split(':');
-
-      if (i === 0 || i === (dataSplit.length) - 1) {
-        if (i === 0) {
-          var firstPart = curDataSplit[0];
-          var splitFirst = firstPart.split('{');
-          dates.push(splitFirst[1]);
-          prices.push(curDataSplit[1]);
-        } else {
-          var firstPart = curDataSplit[1];
-          var splitFirst = firstPart.split('}');
-          dates.push(curDataSplit[0]);
-          prices.push(splitFirst[0]);
-        }
-      } else {
-        dates.push(curDataSplit[0]);
-        prices.push(curDataSplit[1]);
-      }
-    }
+    console.log(dataJSON);
 
     const datesFormatted = new Array();
     const pricesFormatted = new Array();
@@ -89,6 +65,8 @@
 
     var chart = new google.visualization.LineChart(document.getElementById("curve_chart"));
 
+    console.log("Results data: ");
+    console.log(data);
     chart.draw(data, options);
   }
   console.log("Script");

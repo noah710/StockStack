@@ -90,8 +90,29 @@ def get_active_tickers():
     for x in range(10):
         active_array.append((str(active_tickers['Symbol'][x])))
         
-    return jsonify(active_array) 
-     
+    return jsonify(active_array)
+
+@app.route("/graph_data", methods=['GET']) 
+def get_graph_data():
+
+    ticker = yf.Ticker('SPY')
+    ticker_history = ticker.history(period = "1mo", interval = "1d")
+
+    price_info = []
+    for d in range(len(ticker_history.index)):
+        cur = str(ticker_history.index[d])
+
+        price_rounded = round(ticker_history, 2)
+        price_cur_date = str(price_rounded['Close'].iloc[d])
+
+        cur = {
+            "price" : price_cur_date,
+            "date" : cur[0:10]
+        }
+
+        price_info.append(cur)
+
+    return jsonify(price_info)
 
 class UserTickerData:
     def __init__(self, symbol, buy_price, amount, date):
@@ -121,19 +142,21 @@ def get_default_dates_and_prices(ticker_symbol):
     ticker = yf.Ticker(ticker_symbol)
     ticker_history = ticker.history(period = "1mo", interval = "1d")
 
-    dates = []
-    prices = []
+    price_info = []
     for d in range(len(ticker_history.index)):
         cur = str(ticker_history.index[d])
-        dates.append(cur[0:10])
 
         price_rounded = round(ticker_history, 2)
         price_cur_date = str(price_rounded['Close'].iloc[d])
-        prices.append(price_cur_date)
 
-    data = {dates[i]: prices[i] for i in range(len(dates))}
+        cur = {
+            "price" : price_cur_date,
+            "date" : cur[0:10]
+        }
 
-    return data
+        price_info.append(cur)
+
+    return jsonify(price_info)
 
 # Function returns portfolio base price (price paid for all assets), portfolio current price, and overall percentage gain/loss
 def calculate_net_worth_data(ticker_list):
