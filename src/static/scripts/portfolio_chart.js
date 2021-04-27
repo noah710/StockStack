@@ -33,6 +33,23 @@ $(document).ready(function() {
     // and format for drawChart()
     console.log("Heres the data");
     console.log(data);
+    // PRINTS AS
+    // Heres the data 
+    // [
+    //   {
+    //     "amount": "20000.0",
+    //     "date": "04/21/2008",
+    //     "price": "1e-44",
+    //     "ticker": "AMZN"
+    //   },
+    //   {
+    //     "amount": "10.0",
+    //     "date": "03.13/2014",
+    //     "price": "0.5",
+    //     "ticker": "GME"
+    //   }
+    // ]
+
 
     // drawChart with user data
     // drawChart()
