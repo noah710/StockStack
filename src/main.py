@@ -90,8 +90,36 @@ def get_active_tickers():
     for x in range(10):
         active_array.append((str(active_tickers['Symbol'][x])))
         
+<<<<<<< Updated upstream
     return jsonify(active_array) 
      
+=======
+    return jsonify(active_array)
+
+@app.route("/graph_data", methods=['GET']) 
+def get_graph_data():
+
+    ticker = yf.Ticker('SPY')
+    ticker_history = ticker.history(period = "1mo", interval = "1d")
+
+    price_info = []
+    for d in range(len(ticker_history.index)):
+        cur = str(ticker_history.index[d])
+
+        price_rounded = round(ticker_history, 2)
+        price_cur_date = str(price_rounded['Close'].iloc[d])
+
+        cur = {
+            "price" : price_cur_date,
+            "date" : cur[0:10]
+        }
+
+        price_info.append(cur)
+
+    #data = {dates[i]: prices[i] for i in range(len(dates))}
+
+    return jsonify(price_info)
+>>>>>>> Stashed changes
 
 class UserTickerData:
     def __init__(self, symbol, buy_price, amount, date):

@@ -195,4 +195,83 @@ function insert_price(response_data, cell){
     }
     cell.innerHTML = price;
     cell.style.color = color;
+<<<<<<< Updated upstream
+=======
+}
+
+function get_graph_data(data) {
+
+    dataParsed = JSON.parse(data);
+    console.log("Data parsed:");
+    console.log(dataParsed);
+
+    google.charts.load('current', {'packages':['corechart', 'line']});
+	  google.charts.setOnLoadCallback(drawChart(dataParsed));
+	
+	  function drawChart(data) {
+
+      const datesFormatted = new Array();
+      const pricesFormatted = new Array();
+
+      for (var i = 0; i < data.length; i++) {
+        var price = data[i].price;
+        var priceFormat = parseFloat(price);
+        pricesFormatted.push(priceFormat);
+
+        var date = data[i].date;
+        var dateSplit = date.split("-");
+
+        var year = dateSplit[0];
+        var month = dateSplit[1];
+        var day = dateSplit[2];
+
+        var dateFormat = new Date(year, month - 1, day);
+        datesFormatted.push(dateFormat);
+      }
+	
+		  var data = new google.visualization.DataTable();
+		  data.addColumn('date', 'Date');
+		  data.addColumn('number', 'Price');
+
+      console.log("Prices: ");
+      console.log(pricesFormatted);
+      console.log("Dates: ");
+      console.log(datesFormatted);
+	
+		  for (var m = 0; m < datesFormatted.length; m++) {
+		    data.addRow([datesFormatted[m], pricesFormatted[m]]);
+		  }
+	
+		  var dataCount = datesFormatted.length;
+	
+		  var options = {
+		    title: 'SPDR S&P 500 ETF Trust (Past Month)',
+		    animation: {
+			    startup: true,
+			    duration: 1500,
+			    easing: 'out',
+		    },
+		    pointsVisible: true,
+		    pointSize: 3,
+		    legend: {position: 'none'},
+		    hAxis: {
+			    format: 'MM/d',
+			  gridlines: {count: 5},
+			  pointSize: 2,
+			  //title: 'Date',
+			  titlePosition: 'none'
+		    },
+		    vAxis: {
+			  title: 'Price'
+		  }
+		};
+	
+		//var curPrice = pricesFormatted[pricesFormatted.length - 1];
+		//console.log('CUR PRICE: ' + curPrice);
+		//document.getElementById("myText").innerHTML = curPrice;
+	
+		var chart = new google.visualization.LineChart(document.getElementById("curve_chart"));
+		chart.draw(data, options);
+	}
+>>>>>>> Stashed changes
 }
