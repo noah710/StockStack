@@ -44,7 +44,7 @@ def home():
 
     # check if there is an active session
     user = session.get("user", None)
-    
+
     get_top_tickers()
 
     # add user variable to homepage
@@ -56,45 +56,45 @@ def get_curated_tickers():
     # can make these dynamic later, load from file, or random generated
     tickers = ["MSFT", "TSLA", "AAPL", "GE", "AMZN", "NVDA", "FB", "AMD", "NFLX", "TWTR"]
 
-    return jsonify(tickers) 
+    return jsonify(tickers)
 
-#puts only the tickers of the top gainers in an array and jsonifys it. 
-@app.route("/top_tickers", methods=['GET'])      
+#puts only the tickers of the top gainers in an array and jsonifys it.
+@app.route("/top_tickers", methods=['GET'])
 def get_top_tickers():
     top_tickers = si.get_day_gainers()
-    
+
     top_array = []
-    
+
     for x in range(10):
         top_array.append((str(top_tickers['Symbol'][x])))
-        
+
     return jsonify(top_array)
-    
+
 #puts only the tickers of the top losers in an array and jsonifys it.
-@app.route("/bottom_tickers", methods=['GET'])      
+@app.route("/bottom_tickers", methods=['GET'])
 def get_bottom_tickers():
     bottom_tickers = si.get_day_losers()
-    
+
     bottom_array = []
-    
+
     for x in range(10):
         bottom_array.append((str(bottom_tickers['Symbol'][x])))
-        
-    return jsonify(bottom_array)   
+
+    return jsonify(bottom_array)
 
 #puts only the tickers of the most active stocks in an array and jsonifys it.
-@app.route("/active_tickers", methods=['GET'])      
+@app.route("/active_tickers", methods=['GET'])
 def get_active_tickers():
     active_tickers = si.get_day_most_active()
-    
+
     active_array = []
-    
+
     for x in range(10):
         active_array.append((str(active_tickers['Symbol'][x])))
-        
+
     return jsonify(active_array)
 
-@app.route("/graph_data", methods=['GET']) 
+@app.route("/graph_data", methods=['GET'])
 def get_graph_data():
 
     ticker = yf.Ticker('SPY')
@@ -292,10 +292,10 @@ def fetch(ticker):
     #print("printing data jsonified: " + str(jsonify(data)))
 
     #return jsonified data array
-    
+
     # xmltodict is causing an error here, just gonna json the data
     #Data = xmltodict.parse(data)
-    
+
     return jsonify(data)
 
 

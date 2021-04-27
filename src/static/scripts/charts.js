@@ -44,12 +44,12 @@ function get_results_info(data) {
 }
 
 function get_results_data(data) {
-    
+
 	dataParsed = JSON.parse(data);
 
     google.charts.load('current', {'packages':['corechart', 'line']});
 	google.charts.setOnLoadCallback(drawChart(dataParsed));
-	
+
 	function drawChart(data) {
 
         const datesFormatted = new Array();
@@ -70,17 +70,17 @@ function get_results_data(data) {
             var dateFormat = new Date(year, month - 1, day);
             datesFormatted.push(dateFormat);
         }
-	
+
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('date', 'Date');
 	    data.addColumn('number', 'Price ($)');
-	
+
 	    for (var m = 0; m < datesFormatted.length; m++) {
 		    data.addRow([datesFormatted[m], pricesFormatted[m]]);
 	    }
-	
+
 	    var dataCount = datesFormatted.length;
-	
+
 	    var options = {
 		    title: 'Asset Performance (Past Month)',
 		    animation: {
@@ -102,10 +102,10 @@ function get_results_data(data) {
 			  title: 'Price'
 		  }
 		};
-	
+
 		var curPrice = pricesFormatted[pricesFormatted.length - 1];
 		document.getElementById("myText").innerHTML = curPrice;
-	
+
 		var chart = new google.visualization.LineChart(document.getElementById("result_chart"));
 		chart.draw(data, options);
 	}

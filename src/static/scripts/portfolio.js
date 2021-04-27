@@ -122,7 +122,7 @@ $(document).ready(function() {
     
     gainloss_cell.innerHTML = Math.round(gainloss * 100) / 100 // this basically just rounds it to 2 decimal places 
     if (gainloss >= 0){
-      gainloss_cell.style.color = 'lightgreen' 
+      gainloss_cell.style.color = '#00cc00' 
     }else{
       gainloss_cell.style.color = 'red'
     }
@@ -152,7 +152,7 @@ $(document).ready(function() {
     cell_total_gainloss.innerHTML = Math.round(total_gainloss * 100) / 100
 
     if (total_gainloss >= 0){
-      cell_total_gainloss.style.color = 'lightgreen' 
+      cell_total_gainloss.style.color = '#00cc00' 
     }else{
       cell_total_gainloss.style.color = 'red'
     }
