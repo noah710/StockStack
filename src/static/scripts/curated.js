@@ -198,7 +198,7 @@ function fill_in_prices(table_id){
 function insert_price(response_data, cell){
     var price = JSON.parse(response_data)
     console.log("inserting " + price)
-    var color = "lightgreen";
+    var color = "#00cc00";
     // if price is negative, make positive and set color to red
     if(price < 0){
         price = price * -1;
