@@ -238,12 +238,7 @@ function get_graph_data(data) {
 	
 	    var data = new google.visualization.DataTable();
 	    data.addColumn('date', 'Date');
-	    data.addColumn('number', 'Price');
-
-        console.log("Prices: ");
-        console.log(pricesFormatted);
-        console.log("Dates: ");
-        console.log(datesFormatted);
+	    data.addColumn('number', 'Price ($)');
 	
 	    for (var m = 0; m < datesFormatted.length; m++) {
 		    data.addRow([datesFormatted[m], pricesFormatted[m]]);

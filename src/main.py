@@ -26,6 +26,8 @@ ds_client = datastore.Client()
 
 app = Flask(__name__)
 
+cur_query = 'temp'
+
 # this causing problems on app engine
 # need to make this static, https://stackoverflow.com/questions/51014992/google-app-engine-session-loses-attribute
 app.secret_key = b'Vwqw\x9d)G\xb2\x00/\xb4b'
@@ -133,9 +135,14 @@ def get_default_ticker_info(ticker_symbol):
     if (isinstance(country, str) is not True):
         country = 'N/A'
 
-    results = [ticker_symbol, asset_name, 'Country: ' + country, description]
+    results = {
+        "ticker_symbol" : ticker_symbol,
+        "name" : asset_name,
+        "country" : country,
+        "description" : description
+    }
 
-    return results
+    return jsonify(results)
 
 def get_default_dates_and_prices(ticker_symbol):
 
@@ -157,6 +164,22 @@ def get_default_dates_and_prices(ticker_symbol):
         price_info.append(cur)
 
     return jsonify(price_info)
+
+@app.route("/results_page_data", methods=["GET"])
+def results_data_prices():
+    # retrieve query from search bar
+
+    data = get_default_dates_and_prices(cur_query)
+
+    return data
+
+@app.route("/results_page_info", methods=["GET"])
+def results_data_info():
+    # retrieve query from search bar
+
+    results = get_default_ticker_info(cur_query)
+
+    return results
 
 # Function returns portfolio base price (price paid for all assets), portfolio current price, and overall percentage gain/loss
 def calculate_net_worth_data(ticker_list):
@@ -207,11 +230,13 @@ def loadResults():
      # check if there is an active session
     user = session.get("user", None)
 
-    # retrieve query from search bar
     query = request.form.get("query")
-    results = get_default_ticker_info(query)
-    data = get_default_dates_and_prices(query)
-    return render_template("results.html", query = results, data = json.dumps(data), user = user)
+    print("RESULTS QUERY: " + query)
+    global cur_query
+    cur_query = query
+    print("SETTING cur_query: " + cur_query)
+
+    return render_template("results.html", user = user)
 
 @app.route("/results/<ticker>", methods=["GET"])
 def loadResults_get(ticker):
@@ -221,9 +246,11 @@ def loadResults_get(ticker):
 
     # retrieve query from search bar
     query = ticker
-    results = get_default_ticker_info(query)
-    data = get_default_dates_and_prices(query)
-    return render_template("results.html", query = results, data = json.dumps(data), user = user)
+    global cur_query
+    cur_query = query
+    #query = request.form.get("query")
+    #print("SECOND QUERY" + query)
+    return render_template("results.html", user = user)
 
 @app.route("/aboutus", methods=["GET"])
 def about_us():
