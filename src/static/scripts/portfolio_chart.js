@@ -4,6 +4,7 @@ var compare = false;
 
 // Current ticker //
 var curr_ticker;
+var total_for_curr_ticker = 0.0;
 
 // array of historic asset value
 var assetVal = [];
@@ -34,7 +35,7 @@ $(document).ready(function() {
     console.log("Heres the data");
     console.log(data);
     // PRINTS AS
-    // Heres the data 
+    // Heres the data
     // [
     //   {
     //     "amount": "20000.0",
