@@ -50,7 +50,7 @@ $(document).ready(function() {
     //     "ticker": "GME"
     //   }
     // ]
-
+    console.log(data[1]["ticker"]);
 
     // drawChart with user data
     // drawChart()
@@ -121,7 +121,7 @@ $(document).ready(function() {
   var dataCount = datesFormatted.length;
 
   var options = {
-    title: 'SPDR S&P 500 ETF Trust (Past Month)',
+    title: 'User Asset Value',
     animation: {
   	startup: true,
   	duration: 1500,
@@ -138,7 +138,7 @@ $(document).ready(function() {
   	titlePosition: 'none'
     },
     vAxis: {
-  	title: 'Price'
+  	title: 'Value'
     }
   };
 
