@@ -8,7 +8,7 @@
 
 <style>
   * {box-sizing: border-box;}
-  
+
   .center {
     margin-left: auto;
     margin-right: auto;
@@ -38,7 +38,7 @@
         max-width: 300px;
         padding: 20px;
       }
-  
+
   .formContainer input[type=text] {
         width: 100%;
         padding: 15px;
@@ -49,7 +49,7 @@
   .formContainer input[type=text]:focus {
         outline: none;
       }
-  
+
   .formContainer .btn {
         padding: 12px 20px;
         border: none;
@@ -60,11 +60,11 @@
         margin-bottom: 15px;
         opacity: 0.8;
       }
-  
+
   .formContainer .cancel {
         background-color: #ed5e32;
       }
-  
+
   .formContainer .btn:hover, .openButton:hover {
         opacity: 1;
       }
@@ -158,8 +158,19 @@ tr:nth-child(odd) {background-color: #b6cbe0;}
         <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
       </form>
     </div>
-
   </div>
 </div>
+<script src="/static/scripts/portfolio_chart.js"></script>
+  <p>
+  	<div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
+  	<style>
+  	.chart {
+  	  width: auto;
+  	  margin: 0 auto;
+  	  border: none;
+  	  color:blueviolet;
+  	}
+  	</style>
+  	<!-- Current Price: $<span id="myText"></span> -->
+  </p>
 {% endblock %}
-

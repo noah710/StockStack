@@ -27,7 +27,7 @@ ds_client = datastore.Client()
 def profile():
     # load the user from the session
     user = session.get("user", None)
-    
+
     if user is None:
         return redirect("/")
     else:
@@ -44,7 +44,7 @@ def add_to_portfolio():
     date = escape(request.form.get("date"))
 
 
-    # check if the user has a portfolio    
+    # check if the user has a portfolio
     user_portfolio = ds_client.get(portfolio_key)
     #if this user has no portfolio, make a new one for user and update
     if user_portfolio is None:
@@ -70,7 +70,7 @@ def add_to_portfolio():
         else: # else this is a new stock and we can just add it
             user_entry = {'ticker':ticker, 'price':str(price), 'amount':str(amount), 'date':date}
             current_data.append(user_entry)
-        
+
         # recreate portfolio json to store
         user_portfolio["data"] = json.dumps(current_data)
         print(user_portfolio["data"])
@@ -110,3 +110,13 @@ def remove_ticker_button(ticker):
 
 
     return jsonify(success=False)
+
+@blueprint.route("/chart", methods=["GET"])
+def generate_chart_data():
+    user = session.get("user", None)
+
+    portfolio_key = ds_client.key("Portfolio", user)
+    user_portfolio = ds_client.get(portfolio_key)
+    # test data for undefined values 
+    # data = get_default_dates_and_prices('SPY')
+    return jsonify(json.loads(user_portfolio["data"]))
