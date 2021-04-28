@@ -104,7 +104,7 @@ $(document).ready(function() {
     var table = document.getElementById("portolio_table");
     var price = JSON.parse(response_data)
     if(price == 0 && (table_row == (table.rows.length - 1))){
-      console.log("inserting totals from first if!")
+      //console.log("inserting totals from first if!")
       insert_totals()
       return;
     }else if (price == 0){
@@ -134,7 +134,7 @@ $(document).ready(function() {
     
     var cost_basis = cost_cell.innerHTML * amount_cell.innerHTML
     var gainloss = total_cell.innerHTML - cost_basis 
-    console.log("inserted new price " + table_row)
+    //console.log("inserted new price " + table_row)
     
     // keeping track of this for last cell
     total_gainloss = total_gainloss + gainloss
@@ -150,7 +150,7 @@ $(document).ready(function() {
     num_inserted += 1
     // if its the last ticker, insert the total amounts 
     if (num_inserted == (table.rows.length - 1)){
-      console.log("inserting totals from second if! " + table_row)
+      //console.log("inserting totals from second if! " + table_row)
       insert_totals()
     }
   }
