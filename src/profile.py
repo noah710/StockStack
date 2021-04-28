@@ -122,6 +122,8 @@ def generate_chart_data():
     portfolio_key = ds_client.key("Portfolio", user)
     user_portfolio = ds_client.get(portfolio_key)
     entries = json.loads(user_portfolio['data'])
+    if len(entries) == 0:
+        return jsonify([{'price':0, 'date': '0-0'}])
 
     # set quantities so we can lookup by ticker later
     quantities = {}
