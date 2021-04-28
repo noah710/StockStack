@@ -2,6 +2,9 @@
 var total_gainloss = 0.0
 var total_value = 0.0
 
+// using this to wait for all values to be in table before calculating total
+var num_inserted = 0
+
 $(document).ready(function() {
 
     // create the xhr request
@@ -101,6 +104,7 @@ $(document).ready(function() {
     var table = document.getElementById("portolio_table");
     var price = JSON.parse(response_data)
     if(price == 0 && (table_row == (table.rows.length - 1))){
+      console.log("inserting totals from first if!")
       insert_totals()
       return;
     }else if (price == 0){
@@ -130,6 +134,7 @@ $(document).ready(function() {
     
     var cost_basis = cost_cell.innerHTML * amount_cell.innerHTML
     var gainloss = total_cell.innerHTML - cost_basis 
+    console.log("inserted new price " + table_row)
     
     // keeping track of this for last cell
     total_gainloss = total_gainloss + gainloss
@@ -142,8 +147,10 @@ $(document).ready(function() {
       gainloss_cell.style.color = 'red'
     }
     
+    num_inserted += 1
     // if its the last ticker, insert the total amounts 
-    if (table_row == (table.rows.length - 1)){
+    if (num_inserted == (table.rows.length - 1)){
+      console.log("inserting totals from second if! " + table_row)
       insert_totals()
     }
   }
