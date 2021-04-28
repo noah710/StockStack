@@ -16,6 +16,17 @@ $(document).ready(function() {
     xmlHttp.open("GET", "/profile/portfolio", true); // true for asynchronous 
     xmlHttp.send(null);
 
+    // create the graph xhr request
+    var graph_xmlHttp = new XMLHttpRequest();
+    graph_xmlHttp.onreadystatechange = function() {
+        // whenever the request state changes, check if the data is ready
+        if (graph_xmlHttp.readyState == 4 && graph_xmlHttp.status == 200)
+            // handle data from request
+            get_networth_graph_data(graph_xmlHttp.responseText);
+    }
+    graph_xmlHttp.open("GET", "/profile/chart", true);
+    graph_xmlHttp.send(null);
+
   });
   
   function portfolio_cb(data){
@@ -163,3 +174,71 @@ $(document).ready(function() {
   }
   
   
+  function get_networth_graph_data(data) {
+
+    dataParsed = JSON.parse(data);
+
+    google.charts.load('current', {'packages':['corechart', 'line']});
+	  google.charts.setOnLoadCallback(drawChart(dataParsed));
+	
+	  function drawChart(data) {
+
+        const datesFormatted = new Array();
+        const pricesFormatted = new Array();
+
+        for (var i = 0; i < data.length; i++) {
+            var price = data[i].price;
+            var priceFormat = parseFloat(price);
+            pricesFormatted.push(priceFormat);
+
+            var date = data[i].date;
+            var dateSplit = date.split("-");
+
+            var year = dateSplit[0];
+            var month = dateSplit[1];
+            var day = dateSplit[2];
+
+            var dateFormat = new Date(year, month - 1, day);
+            datesFormatted.push(dateFormat);
+        }
+	
+	    var data = new google.visualization.DataTable();
+	    data.addColumn('date', 'Date');
+	    data.addColumn('number', 'Price ($)');
+	
+	    for (var m = 0; m < datesFormatted.length; m++) {
+		    data.addRow([datesFormatted[m], pricesFormatted[m]]);
+	    }
+	
+	    var dataCount = datesFormatted.length;
+	
+	    var options = {
+		    title: 'Net Worth (Past Month)',
+		    animation: {
+			    startup: true,
+			    duration: 1500,
+			    easing: 'out',
+		    },
+		    pointsVisible: true,
+		    pointSize: 3,
+		    legend: {position: 'none'},
+		    hAxis: {
+			    format: 'MM/d',
+			  gridlines: {count: 5},
+			  pointSize: 2,
+			  //title: 'Date',
+			  titlePosition: 'none'
+		    },
+		    vAxis: {
+			  title: 'Value'
+		  }
+		};
+	
+		//var curPrice = pricesFormatted[pricesFormatted.length - 1];
+		//console.log('CUR PRICE: ' + curPrice);
+		//document.getElementById("myText").innerHTML = curPrice;
+	
+		var chart = new google.visualization.LineChart(document.getElementById("networth_chart"));
+		chart.draw(data, options);
+	}
+}
