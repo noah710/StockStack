@@ -122,50 +122,63 @@ def generate_chart_data():
     portfolio_key = ds_client.key("Portfolio", user)
     user_portfolio = ds_client.get(portfolio_key)
     entries = json.loads(user_portfolio['data'])
-    if len(entries) == 0:
+
+    # EDGE: if users portfolio is empty, return 0's so the chart can display 0
+    if len(entries) == 0: 
         return jsonify([{'price':0, 'date': '0-0'}])
 
     # set quantities so we can lookup by ticker later
     quantities = {}
-    # lets use yf.download to download them zoom zoom
-    # this will also handle case where ticker !exist. If ticker !exist, values will be NaN
-    tickers = ""
+
+    # string base for download request
+    request_tickers = ""
     for asset in entries:
+        # we will use this lookup how much of each ticker we have with the quantities dict
         quantities.update({asset.get('ticker').upper(): asset.get('amount')})
-        tickers += asset.get('ticker') + " " # string will look like "AAPL GME GE F "
+        
+        # lets use yf.download to retrieve data faster. This appends the ticker to the request string
+        # EDGE: this will also handle case where ticker !exist. If ticker !exist, values will be NaN
+        request_tickers += asset.get('ticker') + " " # string will look like "AAPL GME GE F "
 
-
-    # generate string for download request
-    
-    raw_data = yf.download(tickers, period="1mo", interval="1d") 
+    # request data on all tickers simultaneously 
+    raw_data = yf.download(request_tickers, period="1mo", interval="1d") # TODO: hardcoding period and intervals, maybe make these dyamic? 
 
     # time to calculate net worth at each day and create chart data object
     # this will hold the data to plot like this
-    # chart_data = [
-    #               {"price": price, "date": date},
-    #               {"price": price, "date": date},
-    #               ... ]
+    # chart_data = [ {"price": price, "date": date}, ... ]
     chart_data = []
-    # get each series
+    # iterate over data 1 day at a time
     for index, date in enumerate(raw_data.index):
 
+        # get day for iteration
         str_date = str(date).split(" ")[0]
+
+        # get array of price values for each stock on this day(index)
         values = raw_data['Close'].iloc[index]
         
-        day_total = 0.0 # will be net worth on this day
-        # get each ticker in this series
+        # sum net worth on this day
+        day_total = 0.0
+
+        # get each ticker's price on this day
+        # quantities is a dict like: {'TICKER_NAME' : amount_owned}
+        # values is a dict like {'TICKER_NAME' : price}
         for key in quantities.keys():
+            # EDGE: if there is only 1 stock in portfolio, values will be a float instead of an array
             if type(values) is numpy.float64:
                 price = float(values)
             else:
-                price = float(values.get(key)) # get price of stock on that day from dataframe
+                # get price of ticker(key) on that day(values) from dataframe
+                price = float(values.get(key)) 
             
             # check if price is NaN, this happens when tickers are invalid
             if price != price:
+                # just going to continue and not include it in the net worth to be consistent with frontend logic
                 continue
-
-            asset_value = price * float(quantities.get(key)) # multiply price by amount of stock held
             
+            # multiply price by amount of stock held
+            asset_value = price * float(quantities.get(key)) 
+            
+            # increment day_total with value of this stock
             day_total += asset_value
         
         # now that we have a date and total value for this day, add as x,y to chart_data
