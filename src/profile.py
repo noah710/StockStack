@@ -18,6 +18,7 @@ import yfinance as yf
 import re
 
 import json
+import numpy
 
 from google.cloud import datastore
 
@@ -152,7 +153,10 @@ def generate_chart_data():
         day_total = 0.0 # will be net worth on this day
         # get each ticker in this series
         for key in quantities.keys():
-            price = float(values.get(key)) # get price of stock on that day from dataframe
+            if type(values) is numpy.float64:
+                price = float(values)
+            else:
+                price = float(values.get(key)) # get price of stock on that day from dataframe
             
             # check if price is NaN, this happens when tickers are invalid
             if price != price:
