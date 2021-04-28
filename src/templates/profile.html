@@ -132,6 +132,17 @@ tr:nth-child(odd) {background-color: #b6cbe0;}
 
 <button class="openButton" onclick="openForm()"><strong>Add Asset</strong></button>
 
+<p>
+	<div id="networth_chart" class ="chart" style="width: 900px; height: 500px"></div>
+	<style>
+	.chart {
+	  width: auto;
+	  margin: 0 auto;
+	  border: none;
+	}
+	</style>
+</p>
+
 <div class="modal" id="add_asset_modal">
   <div class="modal-content">
 
@@ -160,17 +171,5 @@ tr:nth-child(odd) {background-color: #b6cbe0;}
     </div>
   </div>
 </div>
-<script src="/static/scripts/portfolio_chart.js"></script>
-  <p>
-  	<div id="curve_chart" class ="chart" style="width: 900px; height: 500px"></div>
-  	<style>
-  	.chart {
-  	  width: auto;
-  	  margin: 0 auto;
-  	  border: none;
-  	  color:blueviolet;
-  	}
-  	</style>
-  	<!-- Current Price: $<span id="myText"></span> -->
-  </p>
+
 {% endblock %}

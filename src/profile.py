@@ -12,6 +12,8 @@ from flask import (
     escape
 )
 
+import yfinance as yf
+
 # regex for sanitizing
 import re
 
@@ -38,10 +40,10 @@ def add_to_portfolio():
     user = session.get("user", None)
     portfolio_key = ds_client.key("Portfolio", user)
 
-    ticker = escape(request.form.get("ticker"))
-    price = escape(float(request.form.get("price")))
-    amount = escape(float(request.form.get("amount")))
-    date = escape(request.form.get("date"))
+    ticker = request.form.get("ticker")
+    price = float(request.form.get("price"))
+    amount = float(request.form.get("amount"))
+    date = request.form.get("date")
 
 
     # check if the user has a portfolio
@@ -115,8 +117,55 @@ def remove_ticker_button(ticker):
 def generate_chart_data():
     user = session.get("user", None)
 
+    # retrieve portfolio object
     portfolio_key = ds_client.key("Portfolio", user)
     user_portfolio = ds_client.get(portfolio_key)
-    # test data for undefined values 
-    # data = get_default_dates_and_prices('SPY')
-    return jsonify(json.loads(user_portfolio["data"]))
+    entries = json.loads(user_portfolio['data'])
+
+    # set quantities so we can lookup by ticker later
+    quantities = {}
+    # lets use yf.download to download them zoom zoom
+    # this will also handle case where ticker !exist. If ticker !exist, values will be NaN
+    tickers = ""
+    for asset in entries:
+        quantities.update({asset.get('ticker').upper(): asset.get('amount')})
+        tickers += asset.get('ticker') + " " # string will look like "AAPL GME GE F "
+
+
+    # generate string for download request
+    
+    raw_data = yf.download(tickers, period="1mo", interval="1d") 
+
+    # time to calculate net worth at each day and create chart data object
+    # this will hold the data to plot like this
+    # chart_data = [
+    #               {"price": price, "date": date},
+    #               {"price": price, "date": date},
+    #               ... ]
+    chart_data = []
+    # get each series
+    for index, date in enumerate(raw_data.index):
+
+        str_date = str(date).split(" ")[0]
+        values = raw_data['Close'].iloc[index]
+        
+        day_total = 0.0 # will be net worth on this day
+        # get each ticker in this series
+        for key in quantities.keys():
+            price = float(values.get(key)) # get price of stock on that day from dataframe
+            
+            # check if price is NaN, this happens when tickers are invalid
+            if price != price:
+                continue
+
+            asset_value = price * float(quantities.get(key)) # multiply price by amount of stock held
+            
+            day_total += asset_value
+        
+        # now that we have a date and total value for this day, add as x,y to chart_data
+        chart_data.append({
+            "price" : day_total,
+            "date" : str_date
+        })
+
+    return jsonify(chart_data)

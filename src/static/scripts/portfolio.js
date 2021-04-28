@@ -89,6 +89,12 @@ $(document).ready(function() {
   function insert_price(response_data, table_row){
     var table = document.getElementById("portolio_table");
     var price = JSON.parse(response_data)
+    if(price == 0 && (table_row == (table.rows.length - 1))){
+      insert_totals()
+      return;
+    }else if (price == 0){
+      return;
+    }
 
     /* cell definitions
     var cell_buy_price = row.insertCell(1)
@@ -115,10 +121,8 @@ $(document).ready(function() {
     var gainloss = total_cell.innerHTML - cost_basis 
     
     // keeping track of this for last cell
-    console.log(total_value)
     total_gainloss = total_gainloss + gainloss
     total_value = total_value + (Math.round((price * amount_cell.innerHTML)*100) / 100)
-    console.log(total_value)
     
     gainloss_cell.innerHTML = Math.round(gainloss * 100) / 100 // this basically just rounds it to 2 decimal places 
     if (gainloss >= 0){

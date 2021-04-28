@@ -42,7 +42,9 @@ def get_price(ticker):
 
     ticker_yahoo = yf.Ticker(ticker)
     data = ticker_yahoo.history()
-    current_price = round(data.tail(1)['Close'].iloc[0], 2) # this gets the last close price and rounds to 2 decimal places
-
+    try:
+        current_price = round(data.tail(1)['Close'].iloc[0], 2) # this gets the last close price and rounds to 2 decimal places
+    except:
+        return jsonify(0)
     return jsonify(current_price)
     
