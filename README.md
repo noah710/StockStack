@@ -1,6 +1,17 @@
 # StockStack
+This was created as a final project for my Web Applications Programming class (CS1520.) I led my team in creating a stock portfolio website that allows users to lookup stocks and create and track their own portfolio. This was implemented with a Flask backend, GCP datastore database, and HTML/CSS/JS. 
 
-StockStack is a Flask app for CS1520
+## Demos
+I deployed this app on GCP AppEngine, check it out [here!](https://cs1520-stockstack.uc.r.appspot.com/)
+### Things I thought were cool to implement
+#### Async loading of tickers on homepage
+![async_loading](https://user-images.githubusercontent.com/42897161/117897349-9e8ce280-b290-11eb-82b2-1e08ba48beaf.gif)
+
+#### User portfolio and removing from portfolio
+![profile_load_remove](https://user-images.githubusercontent.com/42897161/117897354-a0ef3c80-b290-11eb-8aa9-d601ce030cd7.gif)
+
+#### Adding to user portfolio
+![portfolio_add](https://user-images.githubusercontent.com/42897161/117897358-a482c380-b290-11eb-8d99-1f0f33a5baee.gif)
 
 ## Installation
 
@@ -27,3 +38,4 @@ Pages are lazy loaded so any file can be modified while the server is running, b
 
 ## License 
 [MIT](https://choosealicense.com/licenses/mit/)
+
