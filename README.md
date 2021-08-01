@@ -5,7 +5,8 @@
 This was created as a final project for my Web Applications Programming class (CS1520.) I led my team in creating a stock portfolio website that allows users to lookup stocks and create and track their own portfolio. This was implemented with a Flask backend, GCP datastore database, and HTML/CSS/JS. 
 
 ## Demos
-I deployed this app on GCP AppEngine, check it out [here!](https://cs1520-stockstack.uc.r.appspot.com/)
+~~I deployed this app on GCP AppEngine, check it out [here!](https://cs1520-stockstack.uc.r.appspot.com/)~~ 
+This app has been removed, as it does not function without the Yahoo Finance historical data API
 ### Things I thought were cool to implement
 #### Async loading of tickers on homepage
 ![async_loading](https://user-images.githubusercontent.com/42897161/117897349-9e8ce280-b290-11eb-82b2-1e08ba48beaf.gif)
