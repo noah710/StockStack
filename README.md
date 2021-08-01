@@ -1,4 +1,7 @@
 # StockStack
+
+*UPDATE: This project no longer works, as it relies on the [Yahoo! Finance](https://finance.yahoo.com) Historical Data API, which was decomissioned in July 2021*
+
 This was created as a final project for my Web Applications Programming class (CS1520.) I led my team in creating a stock portfolio website that allows users to lookup stocks and create and track their own portfolio. This was implemented with a Flask backend, GCP datastore database, and HTML/CSS/JS. 
 
 ## Demos
